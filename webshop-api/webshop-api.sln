@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1705.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webshop-api", "webshop-api.csproj", "{43CC416D-9785-4A83-BF48-9B0EF15BB4CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webshop-api", "webshop-api.csproj", "{15883799-5A20-46EF-A12C-C1B9594656DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43CC416D-9785-4A83-BF48-9B0EF15BB4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43CC416D-9785-4A83-BF48-9B0EF15BB4CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43CC416D-9785-4A83-BF48-9B0EF15BB4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43CC416D-9785-4A83-BF48-9B0EF15BB4CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15883799-5A20-46EF-A12C-C1B9594656DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15883799-5A20-46EF-A12C-C1B9594656DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15883799-5A20-46EF-A12C-C1B9594656DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15883799-5A20-46EF-A12C-C1B9594656DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {00C6B4C1-914D-4268-90F3-B5152129E9A9}
+		SolutionGuid = {9AF1273B-4C3D-4648-9A8E-85BA6D7BB16D}
 	EndGlobalSection
 EndGlobal
