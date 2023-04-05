@@ -1,13 +1,20 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Navbar } from "./components/Navbar/Navbar";
 import { AdminOverview } from "./pages/AdminOverview/AdminOverview";
-import { Navbar } from "./components/Navbar";
+import { BrowserRouter } from "react-router-dom";
+import { RouteSystem } from "./components/RouteSystem";
+
+const queryClient = new QueryClient();
 
 export const App = () => {
   return (
-    <div className="App">
-      <Navbar />
-      <div className="m-4">
-        <AdminOverview />
-      </div>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Navbar />
+        <div className="m-auto max-w-[1200px] my-4">
+          <RouteSystem />
+        </div>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
