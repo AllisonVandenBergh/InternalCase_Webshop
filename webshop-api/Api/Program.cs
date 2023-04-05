@@ -1,4 +1,5 @@
-﻿using Infrastructure.Contexts;
+﻿using Api.Endpoints.Internal;
+using Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddEndpoints<Program>(builder.Configuration);
 builder.Services.AddDbContext<WebshopContext>(options => options.UseSqlServer(builder.Configuration.GetValue<string>("Database:ConnectionString")));
 
 var app = builder.Build();
@@ -20,7 +22,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.MapGet("/", () => Results.Ok("Hello world"));
+app.UseEndpoints<Program>();
 
 app.Run();
