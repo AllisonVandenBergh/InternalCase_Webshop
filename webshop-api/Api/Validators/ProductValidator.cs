@@ -10,9 +10,7 @@ namespace Api.Validators
         {
             RuleFor(product => product.Sku)
                 .NotNull()
-                .NotEmpty()
-                .Must(ValidateGuid)
-                .WithMessage("Sku is not a valid Guid");
+                .NotEmpty();
 
             RuleFor(product => product.Name)
                 .NotEmpty();

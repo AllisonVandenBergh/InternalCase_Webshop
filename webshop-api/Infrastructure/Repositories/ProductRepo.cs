@@ -20,9 +20,9 @@ namespace Infrastructure.Repositories
 			return await _webshopContext.Product.ToListAsync();
 		}
 
-        public async Task<Product?> GetBySkuAsync(Guid sku)
+        public async Task<Product?> GetByIdAsync(Guid id)
         {
-            return await _webshopContext.Product.Where(product => product.Sku == sku).FirstOrDefaultAsync();
+            return await _webshopContext.Product.Where(product => product.Id == id).FirstOrDefaultAsync();
         }
 
 		public async Task<int> CreateAsync(Product product)
@@ -37,9 +37,9 @@ namespace Infrastructure.Repositories
             return await _webshopContext.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteAsync(Guid sku)
+        public async Task<int> DeleteAsync(Guid id)
         {
-            _webshopContext.Product.Remove(new Product { Sku = sku});
+            _webshopContext.Product.Remove(new Product { Id = id});
             return await _webshopContext.SaveChangesAsync();
         }
     }

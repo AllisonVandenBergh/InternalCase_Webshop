@@ -27,8 +27,8 @@ namespace Api.Endpoints
                 .Produces<IEnumerable<Product>>(200)
                 .WithTags(Tag);
 
-            app.MapGet($"{BaseRoute}/{{sku}}", GetProductBySkuAsync)
-                .WithName("GetProductBySku")
+            app.MapGet($"{BaseRoute}/{{id}}", GetProductByIdAsync)
+                .WithName("GetProductById")
                 .Produces<Product>(200).Produces(404)
                 .WithTags(Tag);
         }
@@ -39,11 +39,11 @@ namespace Api.Endpoints
             return Results.Ok(await productService.GetAllAsync());
         }
 
-        internal static async Task<IResult> GetProductBySkuAsync(
-            Guid sku,
+        internal static async Task<IResult> GetProductByIdAsync(
+            Guid id,
             IProductService productService)
         {
-            var product = await productService.GetBySkuAsync(sku);
+            var product = await productService.GetByIdAsync(id);
             return product is not null ? Results.Ok(product) : Results.NotFound();
         }
     }

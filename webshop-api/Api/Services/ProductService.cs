@@ -17,7 +17,7 @@ namespace Api.Services
 
         public async Task<bool> CreateAsync(Product product)
         {
-            var existingProduct = await GetBySkuAsync(product.Sku);
+            var existingProduct = await GetByIdAsync(product.Id);
             if (existingProduct is not null)
                 return false;
 
@@ -25,9 +25,9 @@ namespace Api.Services
             return createdProduct > 0;
         }
 
-        public async Task<bool> DeleteAsync(Guid sku)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            var deletedProduct = await _productRepo.DeleteAsync(sku);
+            var deletedProduct = await _productRepo.DeleteAsync(id);
             return deletedProduct > 0;
         }
 
@@ -36,14 +36,14 @@ namespace Api.Services
             return await _productRepo.GetAllAsync();
         }
 
-        public async Task<Product?> GetBySkuAsync(Guid sku)
+        public async Task<Product?> GetByIdAsync(Guid id)
         {
-            return await _productRepo.GetBySkuAsync(sku);
+            return await _productRepo.GetByIdAsync(id);
         }
 
         public async Task<bool> UpdateAsync(Product product)
         {
-            var existingProduct = await _productRepo.GetBySkuAsync(product.Sku);
+            var existingProduct = await _productRepo.GetByIdAsync(product.Id);
             if (existingProduct is null)
                 return false;
 

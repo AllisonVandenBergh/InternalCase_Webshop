@@ -5,7 +5,7 @@ type ButtonProps = {
   className?: string;
   children: ReactNode;
   outlined?: boolean;
-  uppercase?: boolean;
+  lowercase?: boolean;
   active?: boolean;
   rounded?: boolean;
   disabled?: boolean;
@@ -19,7 +19,7 @@ export const Button = ({
   className,
   children,
   outlined,
-  uppercase,
+  lowercase,
   active,
   rounded,
   disabled,
@@ -36,7 +36,7 @@ export const Button = ({
     ${outlined && "btn-outline"} 
     ${active && "btn-active"} 
     ${disabled && "disabled"} 
-    ${!uppercase && "lowercase"} 
+    ${lowercase && "lowercase"} 
     ${icon && "gap-2"} 
     ${loading && "loading"} 
     ${className}
