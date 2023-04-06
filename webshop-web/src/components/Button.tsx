@@ -5,12 +5,13 @@ type ButtonProps = {
   className?: string;
   children: ReactNode;
   outlined?: boolean;
-  lowercase?: boolean;
+  normalCase?: boolean;
   active?: boolean;
   rounded?: boolean;
   disabled?: boolean;
   loading?: boolean;
   icon?: ReactNode;
+  hoverColor?: string;
   variant?: "primary" | "secondary" | "accent" | "ghost" | "link" | "normal";
   size?: "lg" | "sm" | "xs" | "normal";
 };
@@ -19,10 +20,11 @@ export const Button = ({
   className,
   children,
   outlined,
-  lowercase,
+  normalCase,
   active,
   rounded,
   disabled,
+  hoverColor,
   icon,
   loading,
   variant = "normal",
@@ -36,9 +38,10 @@ export const Button = ({
     ${outlined && "btn-outline"} 
     ${active && "btn-active"} 
     ${disabled && "disabled"} 
-    ${lowercase && "lowercase"} 
+    ${normalCase && "normal-case"} 
     ${icon && "gap-2"} 
-    ${loading && "loading"} 
+    ${loading && "loading"}
+    ${hoverColor && `hover:${hoverColor}`}
     ${className}
   `);
 

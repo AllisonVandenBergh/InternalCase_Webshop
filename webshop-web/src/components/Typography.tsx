@@ -8,7 +8,7 @@ export type TypographyProps = {
 
 export const Title = ({ children, className }: TypographyProps) => {
   const computedClassNames = ctl(`
-    text-2xl
+    text-xl
     font-medium
     ${className}
   `);
