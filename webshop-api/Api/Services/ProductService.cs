@@ -2,6 +2,7 @@
 using Api.Services.Interfaces;
 using Domain.Entities;
 using Infrastructure.Repositories.Interfaces;
+using Infrastructure.Services;
 
 namespace Api.Services
 {

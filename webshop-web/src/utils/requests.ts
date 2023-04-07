@@ -1,20 +1,31 @@
 import { Product } from "@/models/product";
 
 type RequestOptions = {
-  url: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE";
+  method: "GET" | "POST" | "PUT" | "DELETE",
+  url: string,
   data?: unknown
 }
 
-const requestAsync = async<TResponse>({url, method = "GET", data}: RequestOptions): Promise<TResponse> => {
+const requestAsync = async<TResponse>({method, url, data}: RequestOptions): Promise<TResponse> => {
   const response = await fetch(url, {
     method: method,
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify(data)
   })
 
-  return response.json();
+  return response.statusText === "No Content" ? response : response.json();
 }
 
 export const getAllProducts = async () => {
-  return await requestAsync<Product[]>({url: `${import.meta.env.VITE_API_URL as string}/products`});
+  return await requestAsync<Product[]>({method: "GET", url: `${import.meta.env.VITE_API_URL as string}/products`});
+};
+
+export const getProduct = async (id: string) => {
+  return await requestAsync<Product>({method: "GET", url: `${import.meta.env.VITE_API_URL as string}/products/${id}`});
+};
+
+export const deleteProduct = async (id: string) => {
+  return await requestAsync({method: "DELETE", url: `${import.meta.env.VITE_API_URL as string}/products/${id}`});
 };

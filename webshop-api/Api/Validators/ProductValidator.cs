@@ -29,23 +29,6 @@ namespace Api.Validators
             RuleFor(product => product.InStock)
                 .NotEmpty();
         }
-
-        private bool ValidateGuid(Guid guid)
-        {
-            try
-            {
-                if (Guid.TryParse(guid.ToString(), out Guid validatedGuid))
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
-
-
 }
 
