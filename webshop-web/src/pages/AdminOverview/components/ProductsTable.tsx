@@ -11,12 +11,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { DeleteModal } from "./DeleteModal";
 import { ProductToDelete } from "@/models/productToDelete";
+import { DetailModal } from "./DetailModal";
 
 export const ProductsTable = () => {
   const [productIdToDelete, setProductIdToDelete] = useState<ProductToDelete>({
     id: null,
     name: null,
   });
+  const [product, setProduct] = useState<Product | null>();
 
   const queryClient = useQueryClient();
   const {
@@ -107,7 +109,11 @@ export const ProductsTable = () => {
                         }
                       />
                     </Button>
-                    <Button rounded variant="ghost">
+                    <Button
+                      rounded
+                      variant="ghost"
+                      onClick={() => setProduct(product)}
+                    >
                       <HiDotsVertical size={20} />
                     </Button>
                   </td>
@@ -118,11 +124,16 @@ export const ProductsTable = () => {
         </table>
       )}
 
-      {/* TODO: best practice for the ""? */}
       <DeleteModal
         open={!!productIdToDelete.id}
         onCancel={() => setProductIdToDelete({ id: null, name: null })}
         onDelete={handleDelete}
+      />
+
+      <DetailModal
+        open={!!product}
+        onClose={() => setProduct(null)}
+        product={product}
       />
     </div>
   );
