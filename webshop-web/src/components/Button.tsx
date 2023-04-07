@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import ctl from "@netlify/classnames-template-literals";
 
-type ButtonProps = {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: ReactNode;
   outlined?: boolean;
@@ -14,7 +14,7 @@ type ButtonProps = {
   hoverColor?: string;
   variant?: "primary" | "secondary" | "accent" | "ghost" | "link" | "normal";
   size?: "lg" | "sm" | "xs" | "normal";
-};
+}
 
 export const Button = ({
   className,
@@ -29,6 +29,7 @@ export const Button = ({
   loading,
   variant = "normal",
   size = "normal",
+  ...attributes
 }: ButtonProps) => {
   const computedClassName = ctl(`
     btn
@@ -46,7 +47,7 @@ export const Button = ({
   `);
 
   return (
-    <button className={computedClassName}>
+    <button className={computedClassName} {...attributes}>
       {icon}
       {children}
     </button>

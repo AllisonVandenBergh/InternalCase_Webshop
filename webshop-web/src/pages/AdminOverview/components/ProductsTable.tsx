@@ -8,8 +8,16 @@ import { IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import imageNotFound from "@/assets/imageNotFound.png";
 import "react-toastify/dist/ReactToastify.css";
+import { useState } from "react";
+import { DeleteModal } from "./DeleteModal";
+import { ProductToDelete } from "@/models/productToDelete";
 
 export const ProductsTable = () => {
+  const [productIdToDelete, setProductIdToDelete] = useState<ProductToDelete>({
+    id: null,
+    name: null,
+  });
+
   const queryClient = useQueryClient();
   const {
     data: products,
@@ -27,12 +35,19 @@ export const ProductsTable = () => {
     mutationFn: deleteProduct,
     onSuccess: (_) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
-      toast.success("Product is deleted 👌");
+      toast.success(`'${productIdToDelete.name}' is deleted 👌`);
+      setProductIdToDelete({ id: null, name: null });
     },
     onError: (_) => {
-      toast.error("Error deleting the product 🫣");
+      toast.error(`Error deleting '${productIdToDelete.name}' 🫣`);
     },
   });
+
+  const handleDelete = () => {
+    if (!productIdToDelete.id) return;
+
+    deleteElement?.mutate(productIdToDelete.id);
+  };
 
   return (
     <div className="overflow-x-auto w-full">
@@ -84,7 +99,12 @@ export const ProductsTable = () => {
                     <Button rounded variant="ghost">
                       <AiOutlineDelete
                         size={20}
-                        onClick={() => deleteElement?.mutate(product.id)}
+                        onClick={() =>
+                          setProductIdToDelete({
+                            id: product.id,
+                            name: product.name,
+                          })
+                        }
                       />
                     </Button>
                     <Button rounded variant="ghost">
@@ -97,6 +117,13 @@ export const ProductsTable = () => {
           )}
         </table>
       )}
+
+      {/* TODO: best practice for the ""? */}
+      <DeleteModal
+        open={!!productIdToDelete.id}
+        onCancel={() => setProductIdToDelete({ id: null, name: null })}
+        onDelete={handleDelete}
+      />
     </div>
   );
 };
