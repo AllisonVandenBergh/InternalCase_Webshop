@@ -1,10 +1,11 @@
 import { Modal } from "@/components/Modal";
-import { Header1, Header2 } from "@/components/Typography";
+import { Header1 } from "@/components/Typography";
 import { Product } from "@/models/product";
 import { HiOutlineCheck } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
 import imageNotFound from "@/assets/imageNotFound.png";
 import { Badge } from "@/components/Badge";
+import { PriceContainer } from "./PriceContainer";
 
 type DetailModalProps = {
   open: boolean;
@@ -44,24 +45,13 @@ export const DetailModal = ({ open, onClose, product }: DetailModalProps) => {
           </div>
           <div className="flex items-center justify-between mt-4">
             <div className="h-24 pr-5 flex justify-center flex-col">
-              <div className="flex">
-                <p className="text-xs font-medium mr-1">€</p>
-                <div className="flex items-end gap-1">
-                  <p className="text-lg font-medium">
-                    {product.sellPrice.toString().replace(".", ",")}
-                  </p>
-                  <p className="text-sm pb-[1px] italic">sell price</p>
-                </div>
-              </div>
-              <div className="flex pt-2">
-                <p className="text-xs font-medium mr-1">€</p>
-                <div className="flex items-end gap-1">
-                  <p className="text-sm font-medium">
-                    {product.basePrice.toString().replace(".", ",")}
-                  </p>
-                  <p className="text-xs pb-[1px] italic">base price</p>
-                </div>
-              </div>
+              <PriceContainer price={product.sellPrice} name="sell price" />
+              <PriceContainer
+                variant="small"
+                price={product.basePrice}
+                name="base price"
+                className="pt-2"
+              />
             </div>
             <div className="h-24 pl-10 flex items-center">
               {product.inStock ? (

@@ -3,8 +3,8 @@ export type Product = {
   name: string;
   description: string;
   sku: string;
-  basePrice: string;
-  sellPrice: string;
+  basePrice: number;
+  sellPrice: number;
   image: string;
   inStock: boolean;
 };

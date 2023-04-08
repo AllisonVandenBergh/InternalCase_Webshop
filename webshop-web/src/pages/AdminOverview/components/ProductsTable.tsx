@@ -10,14 +10,10 @@ import imageNotFound from "@/assets/imageNotFound.png";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { DeleteModal } from "./DeleteModal";
-import { ProductToDelete } from "@/models/productToDelete";
 import { DetailModal } from "./DetailModal";
 
 export const ProductsTable = () => {
-  const [productIdToDelete, setProductIdToDelete] = useState<ProductToDelete>({
-    id: null,
-    name: null,
-  });
+  const [productToDelete, setProductToDelete] = useState<Product | null>();
   const [product, setProduct] = useState<Product | null>();
 
   const queryClient = useQueryClient();
@@ -37,18 +33,18 @@ export const ProductsTable = () => {
     mutationFn: deleteProduct,
     onSuccess: (_) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
-      toast.success(`'${productIdToDelete.name}' is deleted 👌`);
-      setProductIdToDelete({ id: null, name: null });
+      toast.success(`'${productToDelete?.name}' is deleted 👌`);
+      setProductToDelete(null);
     },
     onError: (_) => {
-      toast.error(`Error deleting '${productIdToDelete.name}' 🫣`);
+      toast.error(`Error deleting '${productToDelete?.name}' 🫣`);
     },
   });
 
   const handleDelete = () => {
-    if (!productIdToDelete.id) return;
+    if (!productToDelete?.id) return;
 
-    deleteElement?.mutate(productIdToDelete.id);
+    deleteElement?.mutate(productToDelete.id);
   };
 
   return (
@@ -71,7 +67,7 @@ export const ProductsTable = () => {
           {(!fetchProductsError || !deleteElement.error) && (
             <tbody>
               {products?.map((product) => (
-                <tr key={product.id} className="hover cursor-pointer">
+                <tr key={product.id} className="hover">
                   <td>
                     <div className="w-24 rounded overflow-hidden">
                       <img
@@ -85,8 +81,12 @@ export const ProductsTable = () => {
                   </td>
                   <td>{product.name}</td>
                   <td>{product.sku}</td>
-                  <td>{product.basePrice.toString().replace(".", ",")}</td>
-                  <td>{product.sellPrice.toString().replace(".", ",")}</td>
+                  <td>
+                    {product.basePrice.toFixed(2).toString().replace(".", ",")}
+                  </td>
+                  <td>
+                    {product.sellPrice.toFixed(2).toString().replace(".", ",")}
+                  </td>
                   <td>
                     {product.inStock ? (
                       <HiOutlineCheck size={22} />
@@ -101,12 +101,7 @@ export const ProductsTable = () => {
                     <Button rounded variant="ghost">
                       <AiOutlineDelete
                         size={20}
-                        onClick={() =>
-                          setProductIdToDelete({
-                            id: product.id,
-                            name: product.name,
-                          })
-                        }
+                        onClick={() => setProductToDelete(product)}
                       />
                     </Button>
                     <Button
@@ -125,8 +120,8 @@ export const ProductsTable = () => {
       )}
 
       <DeleteModal
-        open={!!productIdToDelete.id}
-        onCancel={() => setProductIdToDelete({ id: null, name: null })}
+        open={!!productToDelete}
+        onCancel={() => setProductToDelete(null)}
         onDelete={handleDelete}
       />
 
