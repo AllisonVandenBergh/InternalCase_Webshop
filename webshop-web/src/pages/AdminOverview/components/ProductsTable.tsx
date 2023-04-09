@@ -11,10 +11,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
 import { DeleteModal } from "./DeleteModal";
 import { DetailModal } from "./DetailModal";
+import { useNavigate } from "react-router-dom";
 
 export const ProductsTable = () => {
   const [productToDelete, setProductToDelete] = useState<Product | null>();
   const [product, setProduct] = useState<Product | null>();
+
+  const navigate = useNavigate();
 
   const queryClient = useQueryClient();
   const {
@@ -95,7 +98,11 @@ export const ProductsTable = () => {
                     )}
                   </td>
                   <td className="text-end">
-                    <Button rounded variant="ghost">
+                    <Button
+                      rounded
+                      variant="ghost"
+                      onClick={() => navigate(`/edit/${product.id}`)}
+                    >
                       <AiOutlineEdit size={20} />
                     </Button>
                     <Button rounded variant="ghost">
