@@ -12,25 +12,32 @@ To get started with this project, follow the steps below:
     git clone https://github.com/AllisonVandenBergh/InternalCase_Webshop.git
 ```
 2. Navigate to the project directory using the command line.
-3. Install the necessary dependencies for the frontend and backend by running the following commands:
+3. Execute the bash script with the name: <b>db_setup.sh</b>
+
+```
+    ./db_setup.sh
+```
+
+This script will create a MSSQL docker container with the name <b>webshop-database</b> based on the existing MSSQL image.
+
+
+4. Install the necessary dependencies for the frontend. The backend will be automatically restored during the dotnet run which will be executed later.
 ```
     cd webshop-web
     pnpm install
+```
+5. Return back to the root directory
+```
+    cd ..
+```
+6. Execute the bash script with the name: <b>start.sh</b>
+```
+    ./start.sh
+```
+The start script will run the docker container of the MSSQL with name <b>webshop-database</b>. It also opens a iTerm window with 2 tabs, one for the frontend where it will run the command 'pnpm run dev' and one for the backend where it will run the command 'dotnet run watch'.
 
-    cd ../webshop-api
-    dotnet restore
-```
-4. Run the dockerfile for setting a local database up for the project
-5. Run the backend by running the following command: 
-```
-    cd webshop-api
-    dotnet run
-```
-6. Run the frontend by running the following command:
-```
-    cd webshop-web
-    pnpm dev
-```
+This script can also be used during development.
+
 7. Navigate to http://localhost:5173/ in your web browser to view the webshop.
 
 ## Usage
