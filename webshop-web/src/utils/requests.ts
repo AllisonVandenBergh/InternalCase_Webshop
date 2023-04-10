@@ -29,3 +29,7 @@ export const getProduct = async (id: string) => {
 export const deleteProduct = async (id: string) => {
   return await requestAsync({method: "DELETE", url: `${import.meta.env.VITE_API_URL as string}/products/${id}`});
 };
+
+export const createProduct = async (product: Product) => {
+  return await requestAsync({method: "POST", url: `${import.meta.env.VITE_API_URL as string}/products`, data: product});
+};

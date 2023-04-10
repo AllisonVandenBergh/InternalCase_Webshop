@@ -32,7 +32,7 @@ export const ProductsTable = () => {
     },
   });
 
-  const deleteElement = useMutation({
+  const deleteMutation = useMutation({
     mutationFn: deleteProduct,
     onSuccess: (_) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -47,7 +47,7 @@ export const ProductsTable = () => {
   const handleDelete = () => {
     if (!productToDelete?.id) return;
 
-    deleteElement?.mutate(productToDelete.id);
+    deleteMutation?.mutateAsync(productToDelete.id);
   };
 
   return (
@@ -67,7 +67,7 @@ export const ProductsTable = () => {
               <th></th>
             </tr>
           </thead>
-          {(!fetchProductsError || !deleteElement.error) && (
+          {(!fetchProductsError || !deleteMutation.error) && (
             <tbody>
               {products?.map((product) => (
                 <tr key={product.id} className="hover">
