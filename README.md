@@ -45,6 +45,7 @@ This script can also be used during development.
 As an admin, you can do the following:
 
 - View a list of all products available in the webshop.
+- Sort, use pagination on the table.
 - Edit a product by clicking on the pencil button next to the product.
 - Delete a product by clicking on the trashcan button next to the product.
 - Add a new product by clicking on the "+ Add new product" button.
