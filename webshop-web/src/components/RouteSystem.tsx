@@ -3,6 +3,7 @@ import { AdminOverview } from "@/pages/AdminOverview/AdminOverview";
 import { ItemList } from "@/pages/ItemList/ItemList";
 import { Route, Routes } from "react-router-dom";
 
+// TODO: move to root folder (its more a config than a component)
 export const RouteSystem = () => {
   return (
     <Routes>

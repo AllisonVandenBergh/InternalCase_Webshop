@@ -6,6 +6,16 @@ export type TypographyProps = {
   className?: string;
 };
 
+// TODO: don't use <p> for titles
+/* 
+Better to write
+
+<h2 className="text-xl font-medium">Title</h2>
+<h2 className="text-xl font-medium">Title</h2>
+<h2 className="text-xl font-medium">Title</h2>
+
+*/
+
 export const Title = ({ children, className }: TypographyProps) => {
   const computedClassNames = ctl(`
     text-xl

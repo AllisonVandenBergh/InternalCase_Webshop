@@ -15,6 +15,8 @@ import { toast } from "react-toastify";
 
 export const AddOrEditProduct = () => {
   const navigate = useNavigate();
+
+  // TODO: split your form type from the API/DTO type
   const {
     register,
     handleSubmit,
@@ -33,19 +35,12 @@ export const AddOrEditProduct = () => {
     },
   });
 
-  const onSubmit = (newProduct: Product) =>
-    createMutation?.mutateAsync(newProduct);
+  const onSubmit = (newProduct: Product) => createMutation?.mutateAsync(newProduct);
 
   return (
     <form className="mx-10" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-end mt-8">
-        <Button
-          outlined
-          className="mr-3"
-          variant="accent"
-          normalCase
-          onClick={() => navigate(-1)}
-        >
+        <Button outlined className="mr-3" variant="accent" normalCase onClick={() => navigate(-1)}>
           Cancel
         </Button>
         <Button normalCase type="submit" icon={<AiOutlineSave size={18} />}>
@@ -91,11 +86,7 @@ export const AddOrEditProduct = () => {
               {...register("sellPrice", { valueAsNumber: true })}
             />
           </div>
-          <Checkbox
-            label="In stock? *"
-            className="w-1/6"
-            {...register("inStock")}
-          />
+          <Checkbox label="In stock? *" className="w-1/6" {...register("inStock")} />
         </div>
       </div>
     </form>

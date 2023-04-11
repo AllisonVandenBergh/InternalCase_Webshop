@@ -8,6 +8,20 @@ type LinkProps = {
   to: string;
 };
 
+// TODO: don't hide a navigation inside the button
+/*
+Better to write
+
+<NavLink to="/admin">Admin panel</NavLink>
+
+or
+
+<NavItem>
+  <Link to={to}>{children}</Link>
+</NavItem>
+*/
+
+// TODO: avoid custom colors & dynamic style names (border-[#00ff00])
 export const NavigationButton = ({ className, children, to }: LinkProps) => {
   const location = useLocation();
 

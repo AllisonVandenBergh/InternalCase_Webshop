@@ -19,6 +19,7 @@ export const ProductsTable = () => {
 
   const navigate = useNavigate();
 
+  // TODO: no need to type useQuery (useQuery<Product[]>)
   const queryClient = useQueryClient();
   const {
     data: products,
@@ -32,6 +33,7 @@ export const ProductsTable = () => {
     },
   });
 
+  // TODO: no need for _ when using no arguments
   const deleteMutation = useMutation({
     mutationFn: deleteProduct,
     onSuccess: (_) => {
@@ -47,9 +49,24 @@ export const ProductsTable = () => {
   const handleDelete = () => {
     if (!productToDelete?.id) return;
 
+    // TODO: no need to use mutateAsync when you don't handle the async error
     deleteMutation?.mutateAsync(productToDelete.id);
   };
 
+  // TODO: move error rendering up so you can avoid ternary operator
+  /*
+  if (isLoading) {
+    return (<>Loading...</>)
+  )
+
+  return (
+    <table className="table w-full">
+  )
+  */
+
+  // TODO: provider alternative rendering for error state
+
+  // TODO: make a Image component if you want to handle image loading errors
   return (
     <div className="overflow-x-auto w-full">
       {isLoading ? (
@@ -84,38 +101,17 @@ export const ProductsTable = () => {
                   </td>
                   <td>{product.name}</td>
                   <td>{product.sku}</td>
-                  <td>
-                    {product.basePrice.toFixed(2).toString().replace(".", ",")}
-                  </td>
-                  <td>
-                    {product.sellPrice.toFixed(2).toString().replace(".", ",")}
-                  </td>
-                  <td>
-                    {product.inStock ? (
-                      <HiOutlineCheck size={22} />
-                    ) : (
-                      <IoCloseOutline size={22} />
-                    )}
-                  </td>
+                  <td>{product.basePrice.toFixed(2).toString().replace(".", ",")}</td>
+                  <td>{product.sellPrice.toFixed(2).toString().replace(".", ",")}</td>
+                  <td>{product.inStock ? <HiOutlineCheck size={22} /> : <IoCloseOutline size={22} />}</td>
                   <td className="text-end">
-                    <Button
-                      rounded
-                      variant="ghost"
-                      onClick={() => navigate(`/edit/${product.id}`)}
-                    >
+                    <Button rounded variant="ghost" onClick={() => navigate(`/edit/${product.id}`)}>
                       <AiOutlineEdit size={20} />
                     </Button>
                     <Button rounded variant="ghost">
-                      <AiOutlineDelete
-                        size={20}
-                        onClick={() => setProductToDelete(product)}
-                      />
+                      <AiOutlineDelete size={20} onClick={() => setProductToDelete(product)} />
                     </Button>
-                    <Button
-                      rounded
-                      variant="ghost"
-                      onClick={() => setProduct(product)}
-                    >
+                    <Button rounded variant="ghost" onClick={() => setProduct(product)}>
                       <HiDotsVertical size={20} />
                     </Button>
                   </td>
@@ -126,17 +122,9 @@ export const ProductsTable = () => {
         </table>
       )}
 
-      <DeleteModal
-        open={!!productToDelete}
-        onCancel={() => setProductToDelete(null)}
-        onDelete={handleDelete}
-      />
+      <DeleteModal open={!!productToDelete} onCancel={() => setProductToDelete(null)} onDelete={handleDelete} />
 
-      <DetailModal
-        open={!!product}
-        onClose={() => setProduct(null)}
-        product={product}
-      />
+      <DetailModal open={!!product} onClose={() => setProduct(null)} product={product} />
     </div>
   );
 };
