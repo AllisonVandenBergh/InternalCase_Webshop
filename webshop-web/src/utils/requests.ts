@@ -6,6 +6,13 @@ type RequestOptions = {
   data?: unknown;
 };
 
+class RequestError extends Error {
+  constructor(message: string, statusCode?: number) {
+    super(message);
+    this.name = "RequestError";
+  }
+}
+
 const requestAsync = async <TResponse>({ method, url, data }: RequestOptions): Promise<TResponse> => {
   const response = await fetch(url, {
     method: method,
@@ -14,6 +21,11 @@ const requestAsync = async <TResponse>({ method, url, data }: RequestOptions): P
     },
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    // const json = await response.json();
+    throw new RequestError(response.statusText);
+  }
 
   return response.statusText === "No Content" ? response : response.json();
 };

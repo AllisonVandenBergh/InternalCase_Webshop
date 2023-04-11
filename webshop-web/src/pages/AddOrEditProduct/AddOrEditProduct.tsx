@@ -13,6 +13,8 @@ import { useMutation } from "@tanstack/react-query";
 import { createProduct } from "@/utils/requests";
 import { toast } from "react-toastify";
 
+type FormValues = {};
+
 export const AddOrEditProduct = () => {
   const navigate = useNavigate();
 

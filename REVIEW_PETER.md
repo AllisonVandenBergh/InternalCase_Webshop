@@ -35,6 +35,7 @@ pnpm run dev
 Or with provided npm scripts (or other)
 
 ```bash
+# run SQL Server in docker
 npm run db:up
 npm run db:migrate
 
@@ -49,4 +50,4 @@ npm run start:api
 - SHOULD format bad request as JSON
 - CONSIDER return the delete resource in the response body (DELETE /products/{id})
 - CONSIDER return a 404 error on invalid guid
-- FIX the `GET /products/{id}` should return 404 if the product is not found (not its a 500 error)
+- FIX the `DELETE /products/{id}` should return 404 if the product is not found (not its a 500 error)

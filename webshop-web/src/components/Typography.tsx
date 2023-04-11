@@ -10,9 +10,12 @@ export type TypographyProps = {
 /* 
 Better to write
 
-<h2 className="text-xl font-medium">Title</h2>
-<h2 className="text-xl font-medium">Title</h2>
-<h2 className="text-xl font-medium">Title</h2>
+<h2 className="title">Title</h2>
+
+.title {
+  @apply: text-xl font-medium;
+}
+
 
 */
 
@@ -33,7 +36,7 @@ export const Header1 = ({ children, className }: TypographyProps) => {
     ${className}
   `);
 
-  return <p className={computedClassNames}>{children}</p>;
+  return <h2 className={computedClassNames}>{children}</h2>;
 };
 
 export const Header2 = ({ children, className }: TypographyProps) => {

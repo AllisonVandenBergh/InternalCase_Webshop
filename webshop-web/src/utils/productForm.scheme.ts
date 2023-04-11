@@ -32,3 +32,5 @@ export const productScheme = z.object({
   image: z.string().min(1).optional(),
   inStock: z.boolean(),
 });
+
+type FormValues = z.infer<typeof productScheme>;

@@ -12,6 +12,10 @@ export type Product extends Omit<ProductDTO, createdAt | updatedAt> {
   createdAt: Date
 }
 
+export type Product extends ProductDTO {
+  // no-op
+}
+
 type FormValues = {
   name: string;
   description: string;

@@ -19,13 +19,19 @@ export const ProductsTable = () => {
 
   const navigate = useNavigate();
 
+  // const { data } = useQueryProducts({
+  //   onError: (_) => {
+  //     toast.error("Error fetching the data from the server 🫣");
+  //   },
+  // });
+
   // TODO: no need to type useQuery (useQuery<Product[]>)
   const queryClient = useQueryClient();
   const {
     data: products,
     error: fetchProductsError,
     isLoading,
-  } = useQuery<Product[]>({
+  } = useQuery({
     queryKey: ["products"],
     queryFn: getAllProducts,
     onError: (_) => {
@@ -34,7 +40,7 @@ export const ProductsTable = () => {
   });
 
   // TODO: no need for _ when using no arguments
-  const deleteMutation = useMutation({
+  const { mutate: deleteMutation } = useMutation({
     mutationFn: deleteProduct,
     onSuccess: (_) => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
@@ -50,13 +56,16 @@ export const ProductsTable = () => {
     if (!productToDelete?.id) return;
 
     // TODO: no need to use mutateAsync when you don't handle the async error
-    deleteMutation?.mutateAsync(productToDelete.id);
+    deleteMutation(productToDelete.id);
   };
 
   // TODO: move error rendering up so you can avoid ternary operator
   /*
   if (isLoading) {
     return (<>Loading...</>)
+  )
+   if (error) {
+    return (<>Loaerrord...</>)
   )
 
   return (
@@ -65,6 +74,8 @@ export const ProductsTable = () => {
   */
 
   // TODO: provider alternative rendering for error state
+
+  // <DataTable columns={columns} data={data} error={error} />
 
   // TODO: make a Image component if you want to handle image loading errors
   return (

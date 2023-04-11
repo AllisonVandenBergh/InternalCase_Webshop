@@ -22,11 +22,13 @@ sudo ln -s /usr/local/share/dotnet/dotnet /usr/local/bin/
 
 To get started with this project, follow the steps below: 
 1. Clone the repository to your local machine by running the following command: 
+
 ```
-    git clone https://github.com/AllisonVandenBergh/InternalCase_Webshop.git
+git clone https://github.com/AllisonVandenBergh/InternalCase_Webshop.git
 ```
 2. Navigate to the project directory using the command line.
 3. Run the following command: 
+
 ```
     dotnet tool install --global dotnet-ef
 ```
