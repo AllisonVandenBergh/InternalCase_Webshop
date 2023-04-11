@@ -9,13 +9,13 @@ namespace Domain.Entities
 
         public string Name { get; set; } = default!;
 
-        public string Description { get; set; } = default!;
+        public string? Description { get; set; }
 
         public double BasePrice { get; set; }
 
         public double SellPrice { get; set; }
 
-        public string Image { get; set; } = default!;
+        public string? Image { get; set; }
 
         public bool InStock { get; set; }
     }
