@@ -14,4 +14,7 @@ export default {
       pattern: /btn-.*/,
     },
   ],
+  "editor.quickSuggestions": {
+    "strings": true
+  }
 };

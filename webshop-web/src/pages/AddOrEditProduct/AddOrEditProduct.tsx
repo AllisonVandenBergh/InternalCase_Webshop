@@ -6,43 +6,48 @@ import { useNavigate } from "react-router-dom";
 import { ImageUpload } from "./components/ImageUpload";
 import { AiOutlineSave } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-import { Product } from "@/models/product";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productScheme } from "@/utils/productForm.scheme";
+import {
+  FormValues,
+  productScheme,
+} from "@/pages/AddOrEditProduct/components/productForm.scheme";
 import { useMutation } from "@tanstack/react-query";
-import { createProduct } from "@/utils/requests";
 import { toast } from "react-toastify";
-
-type FormValues = {};
+import { createProduct } from "@/api/product";
 
 export const AddOrEditProduct = () => {
   const navigate = useNavigate();
 
-  // TODO: split your form type from the API/DTO type
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Product>({
+  } = useForm<FormValues>({
     resolver: zodResolver(productScheme),
   });
 
-  const createMutation = useMutation({
+  const { mutate: createMutation } = useMutation({
     mutationFn: createProduct,
-    onSuccess: (_) => {
+    onSuccess: () => {
       toast.success(`Product is created 👌`);
     },
-    onError: (_) => {
+    onError: () => {
       toast.error(`Error creating the new product 🫣`);
     },
   });
 
-  const onSubmit = (newProduct: Product) => createMutation?.mutateAsync(newProduct);
+  const onSubmit = (newProduct: FormValues) => createMutation(newProduct);
 
   return (
     <form className="mx-10" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex justify-end mt-8">
-        <Button outlined className="mr-3" variant="accent" normalCase onClick={() => navigate(-1)}>
+        <Button
+          outlined
+          className="mr-3"
+          variant="accent"
+          normalCase
+          onClick={() => navigate(-1)}
+        >
           Cancel
         </Button>
         <Button normalCase type="submit" icon={<AiOutlineSave size={18} />}>
@@ -88,7 +93,11 @@ export const AddOrEditProduct = () => {
               {...register("sellPrice", { valueAsNumber: true })}
             />
           </div>
-          <Checkbox label="In stock? *" className="w-1/6" {...register("inStock")} />
+          <Checkbox
+            label="In stock? *"
+            className="w-1/6"
+            {...register("inStock")}
+          />
         </div>
       </div>
     </form>

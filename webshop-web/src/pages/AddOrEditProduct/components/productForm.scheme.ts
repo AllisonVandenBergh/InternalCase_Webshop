@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// TODO: move to form folder
 export const productScheme = z.object({
   name: z
     .string({
@@ -33,4 +32,4 @@ export const productScheme = z.object({
   inStock: z.boolean(),
 });
 
-type FormValues = z.infer<typeof productScheme>;
+export type FormValues = z.infer<typeof productScheme>;

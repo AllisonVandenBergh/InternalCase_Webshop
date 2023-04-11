@@ -10,7 +10,6 @@ type ModalProps = {
   onCloseButtonClick: () => void;
 };
 
-// TODO: optimize
 export const Modal = ({
   children,
   open,

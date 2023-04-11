@@ -1,9 +1,8 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer as ReactToastifyContainer } from "react-toastify";
 
-// TODO: consider user the same name for file and component
-export const StyledToastContainer = () => {
+export const ToastContainer = () => {
   return (
-    <ToastContainer
+    <ReactToastifyContainer
       position="top-right"
       autoClose={5000}
       hideProgressBar={false}

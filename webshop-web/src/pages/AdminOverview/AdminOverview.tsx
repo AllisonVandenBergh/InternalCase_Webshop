@@ -13,7 +13,7 @@ export const AdminOverview = () => {
           icon={<HiPlus />}
           outlined
           normalCase
-          onClick={() => navigate("/add")}
+          onClick={() => navigate("/admin/add")}
         >
           Add new product
         </Button>

@@ -3,9 +3,9 @@ import { Header1 } from "@/components/Typography";
 import { Product } from "@/models/product";
 import { HiOutlineCheck } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
-import imageNotFound from "@/assets/imageNotFound.png";
 import { Badge } from "@/components/Badge";
 import { PriceContainer } from "./PriceContainer";
+import Image from "@/components/Image";
 
 type DetailModalProps = {
   open: boolean;
@@ -24,15 +24,7 @@ export const DetailModal = ({ open, onClose, product }: DetailModalProps) => {
     >
       <div className="flex w-[95%] divide-x h-full">
         <div className="flex items-center mr-4">
-          <div className="w-[250px] overflow-hidden rounded-md">
-            <img
-              src={product.image}
-              onError={({ currentTarget }) => {
-                currentTarget.onerror = null;
-                currentTarget.src = imageNotFound;
-              }}
-            />
-          </div>
+          <Image image={product.image} className="w-[250px]" />
         </div>
         <div className="flex flex-col justify-between pl-5 ">
           <div className="flex-1">
