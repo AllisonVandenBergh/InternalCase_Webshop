@@ -54,16 +54,16 @@ services:
       - 1433:1433
 ```
 
-1. Install the necessary dependencies for the frontend. The backend will be automatically restored during the dotnet run which will be executed later.
+5. Install the necessary dependencies for the frontend. The backend will be automatically restored during the dotnet run which will be executed later.
 ```
     cd webshop-web
     pnpm install
 ```
-1. Return back to the root directory
+6. Return back to the root directory
 ```
     cd ..
 ```
-1. Execute the bash script with the name: <b>start.sh</b>
+7. Execute the bash script with the name: <b>start.sh</b>
 ```
     ./start.sh
 ```
@@ -71,7 +71,13 @@ The start script will run the docker container of the MSSQL with name <b>webshop
 
 This script can also be used during development.
 
-7. Navigate to http://localhost:5173/ in your web browser to view the webshop.
+8. Navigate to http://localhost:5173/ in your web browser to view the webshop.
+
+In case you get the following error message "ERR_CERT_AUTHORITY_FAILED" when accesing the API, navigate in a new iTerm window to the webshop-api folder and execute the following command: 
+
+```
+dotnet dev-certs https --trust
+```
 
 ## Usage
 ### Admin
