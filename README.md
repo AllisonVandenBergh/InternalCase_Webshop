@@ -5,14 +5,32 @@ This project has been developed as an internal case for the company Euricom NV. 
 ## Technology stack
 - React: used for the frontend development of the webshop
 - .NET7: used for the backend development of the webshop
+## Requirements
+- Backend
+  - Install Visual studio (for Mac or Windows)
+    - If you don't want to install Visual studio, you can install the .NET7 SDK found on the following [site](https://dotnet.microsoft.com/en-us/download/dotnet/7.0). This SDK contains also the dotnet cli. This project uses .NET7.
+    - When working on a Mac and you don't have the dotnet cli, run the following command: 
+```
+sudo ln -s /usr/local/share/dotnet/dotnet /usr/local/bin/
+```
+
+- Frontend
+  - React
+  - Pnpm 
+
 ## Getting started
+
 To get started with this project, follow the steps below: 
 1. Clone the repository to your local machine by running the following command: 
 ```
     git clone https://github.com/AllisonVandenBergh/InternalCase_Webshop.git
 ```
 2. Navigate to the project directory using the command line.
-3. Execute the bash script with the name: <b>db_setup.sh</b>
+3. Run the following command: 
+```
+    dotnet tool install --global dotnet-ef
+```
+4. Execute the bash script with the name: <b>db_setup.sh</b>
 
 ```
     ./db_setup.sh
@@ -20,17 +38,32 @@ To get started with this project, follow the steps below:
 
 This script will create a MSSQL docker container with the name <b>webshop-database</b> based on the existing MSSQL image.
 
+<b>IMPORTANT!</b>
+When working on a Mac with M1 chip, you need to change the image name in the docker compose file or copy the following and paste it in the docker compose file:
 
-4. Install the necessary dependencies for the frontend. The backend will be automatically restored during the dotnet run which will be executed later.
+```
+version: "3.9"
+services:
+  sql-server:
+    container_name: webshop-database
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: Strong@Passw0rd
+    ports:
+      - 1433:1433
+```
+
+1. Install the necessary dependencies for the frontend. The backend will be automatically restored during the dotnet run which will be executed later.
 ```
     cd webshop-web
     pnpm install
 ```
-5. Return back to the root directory
+1. Return back to the root directory
 ```
     cd ..
 ```
-6. Execute the bash script with the name: <b>start.sh</b>
+1. Execute the bash script with the name: <b>start.sh</b>
 ```
     ./start.sh
 ```
