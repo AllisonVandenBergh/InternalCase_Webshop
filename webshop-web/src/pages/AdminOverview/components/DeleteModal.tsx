@@ -1,6 +1,5 @@
-import { Button } from "@/components/Button";
-import { Modal } from "@/components/Modal";
-import { Header2 } from "@/components/Typography";
+import Button from "@/components/Button";
+import Modal from "@/components/Modal";
 import { IoAlertCircleOutline } from "react-icons/io5";
 
 type DeleteModalProps = {
@@ -9,12 +8,12 @@ type DeleteModalProps = {
   onDelete: () => void;
 };
 
-export const DeleteModal = ({ open, onCancel, onDelete }: DeleteModalProps) => {
+const DeleteModal = ({ open, onCancel, onDelete }: DeleteModalProps) => {
   return (
     <Modal open={open} onCloseButtonClick={onCancel}>
       <div className="flex items-center">
         <IoAlertCircleOutline className="mr-2" size={22} color="#fc4242" />
-        <Header2>Are you sure?</Header2>
+        <h2 className="subHeader">Are you sure?</h2>
       </div>
       <p className="mt-4">
         Do you really want to delete this product? This proces cannot be undone.
@@ -36,3 +35,5 @@ export const DeleteModal = ({ open, onCancel, onDelete }: DeleteModalProps) => {
     </Modal>
   );
 };
+
+export default DeleteModal;

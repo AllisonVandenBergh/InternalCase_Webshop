@@ -5,81 +5,82 @@ This project has been developed as an internal case for the company Euricom NV. 
 ## Technology stack
 - React: used for the frontend development of the webshop
 - .NET7: used for the backend development of the webshop
-## Requirements
+
+## Prerequisites
 - Backend
-  - Install Visual studio (for Mac or Windows)
-    - If you don't want to install Visual studio, you can install the .NET7 SDK found on the following [site](https://dotnet.microsoft.com/en-us/download/dotnet/7.0). This SDK contains also the dotnet cli. This project uses .NET7.
-    - When working on a Mac and you don't have the dotnet cli, run the following command: 
-```
-sudo ln -s /usr/local/share/dotnet/dotnet /usr/local/bin/
-```
-
+  - Install docker
+    - Also possible to install docker desktop
+  - Install dotnet
+    - Install Visual studio (for Mac or Windows)
+    - In case when you don't want to install Visual studio, install the .NET7 SDK found on the following [site](https://dotnet.microsoft.com/en-us/download/dotnet/7.0). This SDK contains also the dotnet cli.
 - Frontend
-  - React
-  - Pnpm 
+  - Install node
+  - Install pnpm
 
-## Getting started
+## Quick Start
 
-To get started with this project, follow the steps below: 
-1. Clone the repository to your local machine by running the following command: 
+### With the commandline
 
-```
-git clone https://github.com/AllisonVandenBergh/InternalCase_Webshop.git
-```
-2. Navigate to the project directory using the command line.
-3. Run the following command: 
+```bash
+# Run SQL Server in docker
+docker-compose -f docker-compose.yml up -d
 
-```
-    dotnet tool install --global dotnet-ef
-```
-4. Execute the bash script with the name: <b>db_setup.sh</b>
+# Run SQL Server in docker - Mac M1 users
+docker-compose -f docker-compose-arm.yml up -d
 
-```
-    ./db_setup.sh
-```
+# Install dotnet-ef
+dotnet tool install --global dotnet-ef
 
-This script will create a MSSQL docker container with the name <b>webshop-database</b> based on the existing MSSQL image.
+# Run DB update
+dotnet ef database update --project webshop-api/Infrastructure --startup-project webshop-api/Api
 
-<b>IMPORTANT!</b>
-When working on a Mac with M1 chip, you need to change the image name in the docker compose file or copy the following and paste it in the docker compose file:
+# Start DB
+docker start webshop-database
 
-```
-version: "3.9"
-services:
-  sql-server:
-    container_name: webshop-database
-    image: mcr.microsoft.com/azure-sql-edge:latest
-    environment:
-      ACCEPT_EULA: Y
-      SA_PASSWORD: Strong@Passw0rd
-    ports:
-      - 1433:1433
+# Install dependencies frontend
+cd ./webshop-web
+pnpm install
+
+# Start API (BE)
+dotnet run watch --project ${current_folder}/webshop-api/Api --launch-profile https
+
+# Start React SPA
+cd ./webshop-web 
+pnpm run dev
 ```
 
-5. Install the necessary dependencies for the frontend. The backend will be automatically restored during the dotnet run which will be executed later.
-```
-    cd webshop-web
-    pnpm install
-```
-6. Return back to the root directory
-```
-    cd ..
-```
-7. Execute the bash script with the name: <b>start.sh</b>
-```
-    ./start.sh
-```
-The start script will run the docker container of the MSSQL with name <b>webshop-database</b>. It also opens a iTerm window with 2 tabs, one for the frontend where it will run the command 'pnpm run dev' and one for the backend where it will run the command 'dotnet run watch'.
+### With NPM
+This project contains npm scripts that can be used.
+```bash
+# Run SQL Server in docker
+npm run db:up
 
-This script can also be used during development.
+# Run SQL Server in docker - Mac M1 users
+npm run db:upMac
 
-8. Navigate to http://localhost:5173/ in your web browser to view the webshop.
+# Run DB update
+npm run db:update
 
-In case you get the following error message "ERR_CERT_AUTHORITY_FAILED" when accesing the API, navigate in a new iTerm window to the webshop-api folder and execute the following command: 
+# Start DB
+npm run db:start
 
+# Install dependencies frontend
+npm run web:install
+
+# Start API (BE)
+npm run start:api
+
+# Start React SPA
+npm run start:web
 ```
-dotnet dev-certs https --trust
-```
+## Url
+- Default the frontend project wil run on: http://localhost:5173
+  - Port can change based on your configuration.
+- Backend project wil run on: https://localhost:7236/
+  - Port can change based on your configuration.
+  - The url in the frontend can be found in the environment file (.env)
+- Swagger UI runs on: https://localhost:7230/swagger/index.html
+- The production URL: ...
 
 ## Usage
 ### Admin
@@ -97,6 +98,20 @@ As a customer, you can do the following:
 - View a list of all products available in the webshop.
 - Add a product to your basket by clicking on the "Add to Basket" button next to the product.
 
+## Issues solved 
+In case you get the following error message "ERR_CERT_AUTHORITY_FAILED" when accesing the API, navigate in a new terminal window to the webshop-api folder and execute the following command: 
 
+```
+dotnet dev-certs https --trust
+```
+
+## Issues solved for Mac M1 chip users
+- After downloading the .NET7 SDK (standalone or with visual studio), and you don't have the dotnet CLI, run the following command:
+```
+sudo ln -s /usr/local/share/dotnet/dotnet /usr/local/bin/
+```
+<b>IMPORTANT!</b> The path of where dotnet is installed may vary!
+
+- The script for running the database setup will not work because the docker compose file contains the wrong image name for Mac M1 users. More information about this issue can be found on the following [site](https://github.com/microsoft/mssql-docker/issues/668). Use the docker compose file with name: docker-compose-arm.yml.
 
 

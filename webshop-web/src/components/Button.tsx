@@ -16,7 +16,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "lg" | "sm" | "xs" | "normal";
 }
 
-export const Button = ({
+const Button = ({
   className,
   children,
   outlined,
@@ -53,3 +53,5 @@ export const Button = ({
     </button>
   );
 };
+
+export default Button;

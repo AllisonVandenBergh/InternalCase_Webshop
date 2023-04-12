@@ -1,6 +1,6 @@
 import ctl from "@netlify/classnames-template-literals";
 import { forwardRef } from "react";
-import { ErrorMessage } from "./Errormessage";
+import ErrorMessage from "./Errormessage";
 
 type InputProps = {
   label?: string;
@@ -12,7 +12,7 @@ type InputProps = {
   errorMessage?: string;
 };
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       label,
@@ -53,3 +53,5 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
+export default Input;

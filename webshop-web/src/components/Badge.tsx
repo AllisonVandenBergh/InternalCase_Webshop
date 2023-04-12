@@ -7,7 +7,7 @@ type BadgeProps = {
   icon?: ReactNode;
 };
 
-export const Badge = ({ children, className, icon }: BadgeProps) => {
+const Badge = ({ children, className, icon }: BadgeProps) => {
   const computedClassName = ctl(`
     rounded-md
     border-[1px]
@@ -24,3 +24,5 @@ export const Badge = ({ children, className, icon }: BadgeProps) => {
     </div>
   );
 };
+
+export default Badge;

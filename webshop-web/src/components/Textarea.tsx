@@ -1,6 +1,6 @@
 import ctl from "@netlify/classnames-template-literals";
 import { forwardRef } from "react";
-import { ErrorMessage } from "./Errormessage";
+import ErrorMessage from "./Errormessage";
 
 type TextareaProps = {
   label?: string;
@@ -12,7 +12,7 @@ type TextareaProps = {
   errorMessage?: string;
 };
 
-export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       label,
@@ -52,3 +52,5 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     );
   }
 );
+
+export default Textarea;

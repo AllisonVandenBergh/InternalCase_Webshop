@@ -1,4 +1,3 @@
-import { Title } from "@/components/Typography";
 import { NavLink } from "./components/NavLink";
 import { Profile } from "./components/Profile";
 import { NavigationBasket } from "./components/NavigationBasket";
@@ -14,7 +13,7 @@ export const Navbar = () => {
             src={logoEuricom}
             alt="euricom logo"
           />
-          <Title className="pb-1">Webshop</Title>
+          <h1 className="pb-1 title">Webshop</h1>
         </div>
 
         <div className="flex-none divide-x">

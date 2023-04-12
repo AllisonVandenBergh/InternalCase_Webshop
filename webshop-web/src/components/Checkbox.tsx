@@ -9,7 +9,7 @@ type CheckboxProps = {
   className?: string;
 };
 
-export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ checked, label, disabled, size = "md", className, ...rest }, ref) => {
     const computedClassname = ctl(`
         form-control    
@@ -33,3 +33,5 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     );
   }
 );
+
+export default Checkbox;

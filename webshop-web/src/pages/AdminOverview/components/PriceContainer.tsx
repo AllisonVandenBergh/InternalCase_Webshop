@@ -5,7 +5,7 @@ type PriceContainerProps = {
   variant?: "small" | "normal";
 };
 
-export const PriceContainer = ({
+const PriceContainer = ({
   price,
   name,
   className,
@@ -33,3 +33,5 @@ export const PriceContainer = ({
     </div>
   );
 };
+
+export default PriceContainer;

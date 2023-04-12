@@ -1,7 +1,7 @@
 import ctl from "@netlify/classnames-template-literals";
 import { ReactNode } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { Button } from "./Button";
+import Button from "./Button";
 
 type ModalProps = {
   children: ReactNode;
@@ -10,7 +10,7 @@ type ModalProps = {
   onCloseButtonClick: () => void;
 };
 
-export const Modal = ({
+const Modal = ({
   children,
   open,
   className,
@@ -44,3 +44,5 @@ export const Modal = ({
     </>
   );
 };
+
+export default Modal;

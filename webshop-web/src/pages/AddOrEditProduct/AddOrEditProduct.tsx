@@ -1,9 +1,9 @@
-import { Button } from "@/components/Button";
-import { Checkbox } from "@/components/Checkbox";
-import { Input } from "@/components/Input";
-import { Textarea } from "@/components/Textarea";
+import Button from "@/components/Button";
+import Checkbox from "@/components/Checkbox";
+import Input from "@/components/Input";
+import Textarea from "@/components/Textarea";
 import { useNavigate } from "react-router-dom";
-import { ImageUpload } from "./components/ImageUpload";
+import ImageUpload from "./components/ImageUpload";
 import { AiOutlineSave } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,7 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { createProduct } from "@/api/product";
 
-export const AddOrEditProduct = () => {
+const AddOrEditProduct = () => {
   const navigate = useNavigate();
 
   const {
@@ -103,3 +103,5 @@ export const AddOrEditProduct = () => {
     </form>
   );
 };
+
+export default AddOrEditProduct;

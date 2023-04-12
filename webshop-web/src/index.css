@@ -3,5 +3,14 @@
 @tailwind utilities;
 
 .title {
-  @apply: text-xl font-medium;
+  @apply text-xl font-medium;
 }
+
+.header{
+  @apply text-lg font-medium;
+}
+
+.subHeader{
+  @apply font-medium;
+}
+

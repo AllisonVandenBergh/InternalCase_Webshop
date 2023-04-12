@@ -1,10 +1,9 @@
-import { Modal } from "@/components/Modal";
-import { Header1 } from "@/components/Typography";
+import Modal from "@/components/Modal";
 import { Product } from "@/models/product";
 import { HiOutlineCheck } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
-import { Badge } from "@/components/Badge";
-import { PriceContainer } from "./PriceContainer";
+import Badge from "@/components/Badge";
+import PriceContainer from "./PriceContainer";
 import Image from "@/components/Image";
 
 type DetailModalProps = {
@@ -13,7 +12,7 @@ type DetailModalProps = {
   product?: Product | null;
 };
 
-export const DetailModal = ({ open, onClose, product }: DetailModalProps) => {
+const DetailModal = ({ open, onClose, product }: DetailModalProps) => {
   if (!product) return <></>;
 
   return (
@@ -28,7 +27,7 @@ export const DetailModal = ({ open, onClose, product }: DetailModalProps) => {
         </div>
         <div className="flex flex-col justify-between pl-5 ">
           <div className="flex-1">
-            <Header1>{product.name}</Header1>
+            <h2 className="header">{product.name}</h2>
             <div className="flex justify-between font-medium">
               <p>{product.sku}</p>
               <p className="text-sm">(sku)</p>
@@ -68,3 +67,5 @@ export const DetailModal = ({ open, onClose, product }: DetailModalProps) => {
     </Modal>
   );
 };
+
+export default DetailModal;

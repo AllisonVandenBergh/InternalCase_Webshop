@@ -1,0 +1,12 @@
+{
+    "scripts": {
+        "db:up": "docker-compose -f docker-compose.yml up -d",
+        "db:upMac": "docker-compose -f docker-compose-arm.yml up -d",
+        "db:start": "docker start webshop-database",
+        "db:migrate": "./webshop-api/BuildMigration.sh",
+        "db:update": "dotnet ef database update --project webshop-api/Infrastructure --startup-project webshop-api/Api",
+        "start:api": "dotnet run watch --project ./webshop-api/Api --launch-profile https",
+        "start:web": "cd ./webshop-web && pnpm run dev",
+        "web:install": "cd ./webshop-web && pnpm run install"
+    }
+}

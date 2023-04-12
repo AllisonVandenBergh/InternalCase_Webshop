@@ -1,19 +1,20 @@
-import { Button } from "@/components/Button";
+import Button from "@/components/Button";
 import { Product } from "@/models/product";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
-import { HiDotsVertical, HiOutlineCheck } from "react-icons/hi";
+import { HiOutlineCheck } from "react-icons/hi";
 import { IoCloseOutline } from "react-icons/io5";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState } from "react";
-import { DeleteModal } from "./DeleteModal";
-import { DetailModal } from "./DetailModal";
+import { MouseEvent, useState } from "react";
+import DeleteModal from "./DeleteModal";
+import DetailModal from "./DetailModal";
 import { useNavigate } from "react-router-dom";
 import { deleteProduct, getAllProducts } from "@/api/product";
 import Image from "@/components/Image";
+import { FormatCurrency } from "@/utils/Currency";
 
-export const ProductsTable = () => {
+const ProductsTable = () => {
   const [productToDelete, setProductToDelete] = useState<Product | null>();
   const [product, setProduct] = useState<Product | null>();
 
@@ -49,6 +50,14 @@ export const ProductsTable = () => {
       toast.error(`Error deleting '${productToDelete?.name}' 🫣`);
     },
   });
+
+  const handleDeleteButtonClicked = (
+    e: MouseEvent<HTMLButtonElement>,
+    product: Product
+  ) => {
+    e.stopPropagation();
+    setProductToDelete(product);
+  };
 
   const handleDelete = () => {
     if (!productToDelete?.id) return;
@@ -91,12 +100,8 @@ export const ProductsTable = () => {
                 </td>
                 <td>{product.name}</td>
                 <td>{product.sku}</td>
-                <td>
-                  {product.basePrice.toFixed(2).toString().replace(".", ",")}
-                </td>
-                <td>
-                  {product.sellPrice.toFixed(2).toString().replace(".", ",")}
-                </td>
+                <td>{FormatCurrency(product.basePrice)}</td>
+                <td>{FormatCurrency(product.sellPrice)}</td>
                 <td>
                   {product.inStock ? (
                     <HiOutlineCheck size={22} />
@@ -112,11 +117,12 @@ export const ProductsTable = () => {
                   >
                     <AiOutlineEdit size={20} />
                   </Button>
-                  <Button rounded variant="ghost">
-                    <AiOutlineDelete
-                      size={20}
-                      onClick={() => setProductToDelete(product)}
-                    />
+                  <Button
+                    rounded
+                    variant="ghost"
+                    onClick={(e) => handleDeleteButtonClicked(e, product)}
+                  >
+                    <AiOutlineDelete size={20} />
                   </Button>
                 </td>
               </tr>
@@ -139,3 +145,5 @@ export const ProductsTable = () => {
     </div>
   );
 };
+
+export default ProductsTable;
