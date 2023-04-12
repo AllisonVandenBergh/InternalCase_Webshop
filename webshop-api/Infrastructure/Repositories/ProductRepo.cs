@@ -1,18 +1,20 @@
-﻿using System;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Infrastructure.Contexts;
 using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Repositories
 {
 	public class ProductRepo: IProductRepo
 	{
 		private readonly WebshopContext _webshopContext;
+		private readonly ILogger _logger;
 
-		public ProductRepo(WebshopContext webshopContext)
+        public ProductRepo(WebshopContext webshopContext, ILogger<ProductRepo> logger)
 		{
 			_webshopContext = webshopContext;
+			_logger = logger;
 		}
 
 		public async Task<IEnumerable<Product>> GetAllAsync()
@@ -39,8 +41,15 @@ namespace Infrastructure.Repositories
 
         public async Task<int> DeleteAsync(Guid id)
         {
-            _webshopContext.Product.Remove(new Product { Id = id});
-            return await _webshopContext.SaveChangesAsync();
+			try
+			{
+				_webshopContext.Product.Remove(new Product { Id = id});
+				return await _webshopContext.SaveChangesAsync();
+			} catch(DbUpdateConcurrencyException e)
+			{
+				_logger.LogError(e.Message);
+				return 0;
+			}
         }
     }
 }

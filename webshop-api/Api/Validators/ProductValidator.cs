@@ -35,10 +35,6 @@ namespace Api.Validators
                 .NotEmpty()
                 .NotNull()
                 .GreaterThan(0);
-
-            RuleFor(product => product.InStock)
-                .NotEmpty()
-                .NotNull();
         }
     }
 }

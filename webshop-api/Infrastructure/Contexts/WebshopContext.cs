@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Contexts
 {
-    public class WebshopContext: DbContext
+    public class WebshopContext : DbContext
     {
         public WebshopContext(DbContextOptions<WebshopContext> options) : base(options) { }
 

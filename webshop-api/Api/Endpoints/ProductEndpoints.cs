@@ -1,8 +1,10 @@
-﻿using System;
-using Api.Endpoints.Internal;
+﻿using Api.Endpoints.Internal;
 using Api.Services;
 using Api.Services.Interfaces;
+using Api.Validators;
 using Domain.Entities;
+using FluentValidation;
+using FluentValidation.Results;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Interfaces;
 using Infrastructure.Services;
@@ -38,6 +40,13 @@ namespace Api.Endpoints
                 .Produces<Product>(200).Produces(404)
                 .WithTags(Tag);
 
+            app.MapPost(BaseRoute, CreateAsync)
+                .WithName("CreateProduct")
+                .Accepts<Product>(ContentType)
+                .Produces<Product>(201)
+                .Produces<IEnumerable<ValidationFailure>>(400)
+                .WithTags(Tag);
+
             app.MapDelete($"{BaseRoute}/{{id}}", DeleteProductAsync)
                 .WithName("DeleteProduct")
                 .Produces(204).Produces(404)
@@ -51,10 +60,17 @@ namespace Api.Endpoints
         }
 
         internal static async Task<IResult> GetProductByIdAsync(
-            Guid id,
+            string id,
             IProductService productService)
         {
-            var product = await productService.GetByIdAsync(id);
+            var guidId = Utils.StringToGuid(id);
+
+            if (guidId == null)
+            {
+                return Results.NotFound();
+            }
+
+            var product = await productService.GetByIdAsync(guidId ?? Guid.Empty);
             return product is not null ? Results.Ok(product) : Results.NotFound();
         }
 
@@ -65,19 +81,30 @@ namespace Api.Endpoints
         }
 
         //TODO: have doubts about this
-        internal static async Task<IResult> CreateRandomProduct(IProductService productService)
+        internal static async Task<IResult> CreateRandomProduct(IProductService productService,
+            IValidator<Product> validator, LinkGenerator linker,
+            HttpContext context)
         {
             var randomProduct = DatabaseSeed.GenerateFakeProduct();
-            return await CreateAsync(randomProduct, productService);
+            return await CreateAsync(randomProduct, productService, validator, linker, context);
         }
 
-        internal static async Task<IResult> CreateAsync(Product product, IProductService productService)
+        internal static async Task<IResult> CreateAsync(Product product,
+            IProductService productService, IValidator<Product> validator,
+            LinkGenerator linker,HttpContext context)
         {
+            var validationResult = await validator.ValidateAsync(product);
+            if (!validationResult.IsValid)
+            {
+                return Results.BadRequest(validationResult.Errors);
+            }
+
             var created = await productService.CreateAsync(product);
             if (!created)
                 return Results.BadRequest();
 
-            return Results.Created($"{BaseRoute}/{{id}}", product);
+            var locationUri = linker.GetUriByName(context, "GetProductById", new { product.Id })!;
+            return Results.Created(locationUri, product);
         }
     }
 }

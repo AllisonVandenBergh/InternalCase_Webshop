@@ -30,6 +30,7 @@ const AddOrEditProduct = () => {
     mutationFn: createProduct,
     onSuccess: () => {
       toast.success(`Product is created 👌`);
+      navigate("/admin");
     },
     onError: () => {
       toast.error(`Error creating the new product 🫣`);
