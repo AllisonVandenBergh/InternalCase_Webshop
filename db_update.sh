@@ -1,2 +1,2 @@
 #!/bin/bash
-dotnet ef database update --project webshop-api/Infrastructure --startup-project webshop-api/Api
+dotnet ef database update --project Webshop.Core --startup-project Webshop.Web

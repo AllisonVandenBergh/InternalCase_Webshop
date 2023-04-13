@@ -32,7 +32,10 @@ docker-compose -f docker-compose-arm.yml up -d
 dotnet tool install --global dotnet-ef
 
 # Run DB update
-dotnet ef database update --project webshop-api/Infrastructure --startup-project webshop-api/Api
+dotnet ef database update --project Webshop.Core --startup-project Webshop.Web
+
+# Seed the DB with Bogus data
+dotnet run --project Webshop.DbSeed
 
 # Start DB
 docker start webshop-database
@@ -60,6 +63,9 @@ npm run db:upMac
 
 # Run DB update
 npm run db:update
+
+# Seed the DB with Bogus data
+npm run db:seed
 
 # Start DB
 npm run db:start

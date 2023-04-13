@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Features\" />
+    <None Remove="Features\Products\" />
+    <None Remove="Infrastructure\" />
+    <None Remove="Infrastructure\Configurations\" />
+    <None Remove="Features\Products\Interfaces\" />
+    <None Remove="Infrastructure\Migrations\" />
+    <None Remove="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\" />
+    <Folder Include="Features\Products\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Infrastructure\Configurations\" />
+    <Folder Include="Features\Products\Interfaces\" />
+    <Folder Include="Infrastructure\Migrations\" />
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+  </ItemGroup>
+</Project>
