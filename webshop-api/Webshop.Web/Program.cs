@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Webshop.Core.Infrastructure;
 using Webshop.Web;
+using MediatR;
 using Webshop.Web.Endpoints.Internal;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpoints<Program>(builder.Configuration);
 builder.Services.AddDbContext<WebshopContext>(options => options.UseSqlServer(builder.Configuration.GetValue<string>("Database:ConnectionString")));
+builder.Services.AddMediatR(typeof(Program));
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddCors(options =>

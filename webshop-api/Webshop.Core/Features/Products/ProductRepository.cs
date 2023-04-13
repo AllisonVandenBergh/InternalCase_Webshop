@@ -25,10 +25,14 @@ namespace Webshop.Core.Features.Products
             return await _webshopContext.Product.Where(product => product.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<int> CreateAsync(Product product)
+        public async Task<Product?> CreateAsync(Product product)
         {
             await _webshopContext.Product.AddAsync(product);
-            return await _webshopContext.SaveChangesAsync();
+            var affectedRows = await _webshopContext.SaveChangesAsync();
+            if(affectedRows > 0)
+                return product;
+
+            return null;
         }
 
         public async Task<int> CreateMultipleAsync(IEnumerable<Product> products)

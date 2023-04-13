@@ -14,6 +14,9 @@
     <None Remove="Features\Products\Interfaces\" />
     <None Remove="Infrastructure\Migrations\" />
     <None Remove="Utils\" />
+    <None Remove="Features\Products\Domain\" />
+    <None Remove="Features\Products\Domain\Request\" />
+    <None Remove="Features\Products\Domain\Response\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
@@ -23,11 +26,13 @@
     <Folder Include="Features\Products\Interfaces\" />
     <Folder Include="Infrastructure\Migrations\" />
     <Folder Include="Utils\" />
+    <Folder Include="Features\Products\Domain\" />
+    <Folder Include="Features\Products\Domain\Request\" />
+    <Folder Include="Features\Products\Domain\Response\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-    <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
   </ItemGroup>
 </Project>

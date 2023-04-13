@@ -17,6 +17,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +27,10 @@
     <None Remove="Features\Products\V1\" />
     <None Remove="Endpoints\" />
     <None Remove="Endpoints\Internal\" />
+    <None Remove="Features\Products\V1\GetProduct\" />
+    <None Remove="Features\Products\V1\CreateProduct\" />
+    <None Remove="Features\Products\V1\CreateRandomProduct\" />
+    <None Remove="Features\Products\V1\DeleteProduct\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
@@ -32,6 +38,10 @@
     <Folder Include="Features\Products\V1\" />
     <Folder Include="Endpoints\" />
     <Folder Include="Endpoints\Internal\" />
+    <Folder Include="Features\Products\V1\GetProduct\" />
+    <Folder Include="Features\Products\V1\CreateProduct\" />
+    <Folder Include="Features\Products\V1\CreateRandomProduct\" />
+    <Folder Include="Features\Products\V1\DeleteProduct\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webshop.Core\Webshop.Core.csproj">
