@@ -66,17 +66,20 @@ namespace Api.Endpoints
             var guidId = Utils.StringToGuid(id);
 
             if (guidId == null)
-            {
                 return Results.NotFound();
-            }
 
             var product = await productService.GetByIdAsync(guidId ?? Guid.Empty);
             return product is not null ? Results.Ok(product) : Results.NotFound();
         }
 
-        internal static async Task<IResult> DeleteProductAsync(Guid id, IProductService productService)
+        internal static async Task<IResult> DeleteProductAsync(string id, IProductService productService)
         {
-            var deleted = await productService.DeleteAsync(id);
+            var guidId = Utils.StringToGuid(id);
+
+            if (guidId == null)
+                return Results.NotFound();
+
+            var deleted = await productService.DeleteAsync(guidId ?? Guid.Empty);
             return deleted ? Results.NoContent() : Results.NotFound();
         }
 
