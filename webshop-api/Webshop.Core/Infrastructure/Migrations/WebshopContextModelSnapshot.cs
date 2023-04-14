@@ -40,7 +40,7 @@ namespace Webshop.Core.Infrastructure.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("InStock")
+                    b.Property<bool>("IsInStock")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")

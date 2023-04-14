@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Webshop.Core.Infrastructure;
-using Webshop.Web;
-using MediatR;
 using Webshop.Web.Endpoints.Internal;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,24 +1,22 @@
 ﻿using MediatR;
 using Webshop.Core.Features.Products.Interfaces;
 
-namespace Webshop.Web.Features.Products.V1.DeleteProduct
+namespace Webshop.Web.Features.Products.V1.DeleteProduct;
+
+public record DeleteProductCommand(Guid Id) : IRequest<bool>;
+
+public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
 {
-    public record DeleteProductCommand(Guid Id) : IRequest<bool>;
+    private readonly IProductRepository _productRepository;
 
-    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
+    public DeleteProductCommandHandler(IProductRepository productRepository)
     {
-        private readonly IProductRepository _productRepository;
+        _productRepository = productRepository;
+    }
 
-        public DeleteProductCommandHandler(IProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
-
-        public async Task<bool> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
-        {
-            var deletedRows = await _productRepository.DeleteAsync(request.Id);
-            return deletedRows > 0;
-        }
+    public async Task<bool> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    {
+        var deletedRows = await _productRepository.DeleteAsync(request.Id);
+        return deletedRows > 0;
     }
 }
-
