@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Project>
-
 	<ItemGroup Label="Code Analyzers">
 		<PackageReference Include="AsyncFixer" Version="*" PrivateAssets="All" />
 		<PackageReference Include="Meziantou.Analyzer" Version="*" PrivateAssets="All" />
@@ -7,54 +7,46 @@
 		<PackageReference Include="Roslynator.Analyzers" Version="*" PrivateAssets="All" />
 		<PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="*" PrivateAssets="All" />
 		<PackageReference Include="Roslynator.Formatting.Analyzers" Version="*" PrivateAssets="All" />
-		<PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" version="*" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.CodeAnalysis.BannedApiAnalyzers" version="*" PrivateAssets="All" />
 		<AdditionalFiles Include="$(MSBuildThisFileDirectory)\BannedSymbols.txt" Visible="false" />
 	</ItemGroup>
-
 	<ItemGroup Label="Test Project Code Analyzers" Condition="$(MSBuildProjectName.Contains('Test'))">
 		<PackageReference Include="FluentAssertions.Analyzers" Version="*" PrivateAssets="All" />
 	</ItemGroup>
-
 	<PropertyGroup Label="Analyzer settings">
 		<AnalysisMode>AllEnabledByDefault</AnalysisMode>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<AnalysisLevel>latest</AnalysisLevel>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 	</PropertyGroup>
-
 	<PropertyGroup>
 		<LogginSuppressions>CA1848</LogginSuppressions>
 		<LoggingErrors>CA2254, CA1727</LoggingErrors>
 		<TypeScriptSuppressions>TS2304, TS2503, TS2581</TypeScriptSuppressions>
 		<StringComparisonSuppressions>CA1304, CA1305, CA1307, CA1310, CA1311</StringComparisonSuppressions>
-		<SolutionWideSuppressions>AsyncFixer01, MA0004, CA1309, CA2007, CA1034, CA1056, $(TypeScriptSuppressions), $(StringComparisonSuppressions), $(LogginSuppressions)</SolutionWideSuppressions>
-		<TestNamingSuppressions>CA1707</TestNamingSuppressions>
-		<TestProjectSuppressions>$(SolutionWideSuppressions), $(TestNamingSuppressions)</TestProjectSuppressions>
+		<SolutionWideSuppressions>AsyncFixer01, MA0004, CA1309, CA2007, CA1034, CA1056, CA1062, $(TypeScriptSuppressions), $(StringComparisonSuppressions), $(LogginSuppressions)</SolutionWideSuppressions>
+		<TestNamingSuppressions>CA1707, MA0049, CA1720</TestNamingSuppressions>
+		<AsyncSuppressions>MA0004,CA2007</AsyncSuppressions>
+		<TestProjectSuppressions>$(SolutionWideSuppressions), $(TestNamingSuppressions), $(AsyncSuppresions)</TestProjectSuppressions>
 	</PropertyGroup>
-
 	<PropertyGroup Label="Compile settings">
 		<NoWarn>$(SolutionWideSuppressions)</NoWarn>
 		<NoError>$(SolutionWideSuppressions)</NoError>
 	</PropertyGroup>
-
 	<PropertyGroup Label="Compile settings for Unit tests" Condition="$(MSBuildProjectName.Contains('Test'))">
 		<NoWarn>$(TestProjectSuppressions)</NoWarn>
 	</PropertyGroup>
-
 	<PropertyGroup>
 		<DisableImplicitComponentsAnalyzers>true</DisableImplicitComponentsAnalyzers>
 	</PropertyGroup>
-
 	<PropertyGroup>
 		<TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
 		<TypeScriptNoEmitOnError>true</TypeScriptNoEmitOnError>
 		<TypeScriptNoImplicitReturns>true</TypeScriptNoImplicitReturns>
 	</PropertyGroup>
-
 	<PropertyGroup>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
 		<!--<WarningsAsErrors>$(LoggingErrors)</WarningsAsErrors>-->
-		<!--<TreatWarningsAsErrors Condition="'$(Configuration)'=='Release'">true</TreatWarningsAsErrors>-->
+		<TreatWarningsAsErrors Condition="'$(Configuration)'=='Release'">true</TreatWarningsAsErrors>
 	</PropertyGroup>
-
 </Project>

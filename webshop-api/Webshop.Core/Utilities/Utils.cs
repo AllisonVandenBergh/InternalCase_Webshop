@@ -1,4 +1,6 @@
-﻿namespace Webshop.Core.Utils;
+﻿using System.Globalization;
+
+namespace Webshop.Core.Utilities;
 
 public static class Utils
 {
@@ -18,4 +20,8 @@ public static class Utils
         return null;
     }
 
+    public static decimal StringToDecimal(string stringNumber)
+    {
+        return decimal.Parse(stringNumber, CultureInfo.InvariantCulture.NumberFormat);
+    }
 }

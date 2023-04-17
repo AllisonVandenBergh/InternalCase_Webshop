@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Webshop.Core.Features.Products.Interfaces;
 
@@ -9,5 +11,6 @@ public static class ServiceCollectionExtensions
     public static void AddProducts(this IServiceCollection services)
     {
         services.TryAddScoped<IProductRepository, ProductRepository>();
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
     }
 }

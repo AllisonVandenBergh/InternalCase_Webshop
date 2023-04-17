@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Webshop.Core.Features.Products;
+using Webshop.Contracts.Features.Products;
 
 namespace Webshop.Core.Infrastructure.Configurations;
 

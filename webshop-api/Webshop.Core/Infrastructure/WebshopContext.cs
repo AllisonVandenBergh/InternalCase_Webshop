@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Webshop.Core.Features.Products;
+using Webshop.Contracts.Features.Products;
 
 namespace Webshop.Core.Infrastructure;
 

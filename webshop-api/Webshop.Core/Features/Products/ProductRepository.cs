@@ -1,22 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Webshop.Contracts.Features.Products;
 using Webshop.Core.Features.Products.Interfaces;
 using Webshop.Core.Infrastructure;
 
 namespace Webshop.Core.Features.Products;
 
-public class ProductRepository: IProductRepository
+public class ProductRepository : IProductRepository
 {
     private readonly WebshopContext _webshopContext;
-    //private readonly ILogger<ProductRepository> _logger;
 
     public ProductRepository(WebshopContext webshopContext)
     {
         _webshopContext = webshopContext;
-        //_logger = logger;
     }
 
-    // TODO: ToList of Collection
-    public async Task<IEnumerable<Product>> GetAllAsync()
+    public async Task<IList<Product>> GetAllAsync()
     {
         return await _webshopContext.Product.ToListAsync();
     }
@@ -26,14 +24,11 @@ public class ProductRepository: IProductRepository
         return await _webshopContext.Product.Where(product => product.Id == id).FirstOrDefaultAsync();
     }
 
-    public async Task<Product?> CreateAsync(Product product)
+    public async Task<Guid> CreateAsync(Product product)
     {
         await _webshopContext.Product.AddAsync(product);
-        var affectedRows = await _webshopContext.SaveChangesAsync();
-        if(affectedRows > 0)
-            return product;
-
-        return null;
+        await _webshopContext.SaveChangesAsync();
+        return product.Id;
     }
 
     public async Task<int> CreateMultipleAsync(IEnumerable<Product> products)
@@ -48,17 +43,17 @@ public class ProductRepository: IProductRepository
         return await _webshopContext.SaveChangesAsync();
     }
 
-    public async Task<int> DeleteAsync(Guid id)
+    public async Task<int> DeleteAsync(Product product)
     {
         try
         {
-            _webshopContext.Product.Remove(new Product { Id = id });
+            _webshopContext.Product.Remove(product);
             return await _webshopContext.SaveChangesAsync();
         }
         catch (DbUpdateConcurrencyException e)
         {
+            //TODO: will be changed to ILogger!
             Console.WriteLine(e.Message);
-            //_logger.LogError(e.Message);
             return 0;
         }
     }

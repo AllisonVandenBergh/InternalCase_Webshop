@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Reflection;
+using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Webshop.Core.Infrastructure;
@@ -13,7 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpoints<Program>(builder.Configuration);
 builder.Services.AddDbContext<WebshopContext>(options => options.UseSqlServer(builder.Configuration.GetValue<string>("Database:ConnectionString")));
-builder.Services.AddMediatR(typeof(Program));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddCors(options =>

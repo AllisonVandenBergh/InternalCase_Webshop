@@ -1,9 +1,10 @@
 ﻿using Webshop.Contracts.Features.Products;
 using Webshop.Contracts.Features.Products.Response;
-namespace Webshop.Web.Features.Products.V1.GetProduct
+
+namespace Webshop.Core.Features.Products.V1.GetProductQuery
 {
-    public static class GetProductQueryExtensions
-    {
+	public static class GetProductExtensions
+	{
         public static GetProductDto ToDto(this Product product)
         {
             return new GetProductDto
