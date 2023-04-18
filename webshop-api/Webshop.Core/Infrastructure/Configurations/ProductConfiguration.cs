@@ -15,12 +15,13 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).IsRequired();
-        builder.Property(x => x.Sku).IsRequired()
-                                    .HasConversion(converter);
+        builder.Property(x => x.Sku).IsRequired().HasConversion(converter).HasMaxLength(12);
         builder.Property(x => x.Description).IsRequired(false);
-        builder.Property(x => x.BasePrice).IsRequired().HasPrecision(28,2);
-        builder.Property(x => x.SellPrice).IsRequired().HasPrecision(28,2);
+        builder.Property(x => x.BasePrice).IsRequired().HasPrecision(28, 2);
+        builder.Property(x => x.SellPrice).IsRequired().HasPrecision(28, 2);
         builder.Property(x => x.Image).IsRequired(false);
         builder.Property(x => x.IsInStock).IsRequired();
+        builder.Property(x => x.CreatedDate).IsRequired();
+        builder.Property(x => x.UpdatedDate).IsRequired();
     }
 }

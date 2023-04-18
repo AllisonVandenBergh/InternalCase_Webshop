@@ -10,16 +10,15 @@ using Webshop.Core.Features.Products.V1.GetProductListQuery;
 using Webshop.Core.Features.Products.V1.CreateProductCommand;
 using Webshop.Core.Features.Products.V1.CreateRandomProductCommand;
 using Webshop.Core.Features.Products.V1.DeleteProductCommand;
-using Webshop.Web.Features.Products.V1.CreateProduct;
 using FluentValidation.Results;
+using Webshop.Web.Features.Products.V1;
 
 namespace Webshop.Web.Endpoints
 {
-    public class ProductEndpoints : IEndpoints
+    public class AdminProductEndpoints : IEndpoints
     {
         private const string ContentType = "application/json";
         private const string Tag = "Products";
-        private const string BaseRoute = "/api/products";
 
         public static void AddServices(IServiceCollection services, IConfiguration configuration)
         {
@@ -28,34 +27,36 @@ namespace Webshop.Web.Endpoints
 
         public static void DefineEndpoints(IEndpointRouteBuilder app)
         {
-            app.MapPost($"{BaseRoute}/random-multiple", CreateRandomProducts)
+            app.MapPost(ApiEndpoints.Admin.RandomMulti, CreateRandomProducts)
                 .WithName("RandomProductMultiple")
-                .Produces<GetProductDto>(201)
+                .Produces<IEnumerable<GetProductsAdminDto>>(201)
                 .WithTags(Tag);
 
-            app.MapPost($"{BaseRoute}/random-single", CreateRandomProduct)
+            app.MapPost(ApiEndpoints.Admin.RandomSingle, CreateRandomProduct)
                 .WithName("RandomProductSingle")
-                .Produces<GetProductDto>(201)
+                .Produces<Guid>(201)
                 .WithTags(Tag);
 
-            app.MapGet(BaseRoute, GetAllProductsAsync)
+            app.MapGet(ApiEndpoints.Admin.GetAll, GetAllProductsAsync)
                 .WithName("GetProducts")
-                .Produces<IEnumerable<GetProductDto>>(200)
+                .Produces<IEnumerable<GetProductsAdminDto>>(200)
                 .WithTags(Tag);
 
-            app.MapGet($"{BaseRoute}/{{id}}", GetProductByIdAsync)
+            app.MapGet(ApiEndpoints.Admin.Get, GetProductByIdAsync)
                 .WithName("GetProductById")
-                .Produces<GetProductDto>(200).Produces(404).Produces(400)
-                .WithTags(Tag);
-
-            app.MapPost(BaseRoute, CreateAsync)
-                .WithName("CreateProduct")
-                .Accepts<CreateProductRequest>(ContentType)
-                .Produces<GetProductDto>(201)
+                .Produces<GetProductAdminDetailDto>(200).Produces(404)
                 .Produces(400)
                 .WithTags(Tag);
 
-            app.MapDelete($"{BaseRoute}/{{id}}", DeleteProductAsync)
+            app.MapPost(ApiEndpoints.Admin.Create, CreateAsync)
+                .WithName("CreateProduct")
+                .Accepts<CreateProductRequest>(ContentType)
+                .Produces<Guid>(201)
+                .Produces(400)
+                .Produces(500)
+                .WithTags(Tag);
+
+            app.MapDelete(ApiEndpoints.Admin.Delete, DeleteProductAsync)
                 .WithName("DeleteProduct")
                 .Produces(204).Produces(404)
                 .WithTags(Tag);
@@ -74,13 +75,9 @@ namespace Webshop.Web.Endpoints
         }
 
         internal static async Task<IResult> CreateAsync(CreateProductRequest product,
-            IMediator mediator, IValidator<CreateProductRequest> validator, LinkGenerator linker, HttpContext context)
+            IMediator mediator, IValidator<CreateProductRequest> validator, LinkGenerator linker, HttpContext context, CancellationToken token)
         {
-            var validationResult = await validator.ValidateAsync(product);
-            if (!validationResult.IsValid)
-            {
-                return Results.BadRequest(validationResult.Errors);
-            }
+            await validator.ValidateAndThrowAsync(product, cancellationToken: token);
 
             var createdProductId = await mediator.Send(new CreateProduct.Request(product));
             if (createdProductId is null)
@@ -91,7 +88,7 @@ namespace Webshop.Web.Endpoints
                 });
             }
 
-            var locationUri = linker.GetUriByName(context, "GetProductById", new { createdProductId })!;
+            var locationUri = linker.GetUriByName(context, "GetProductById", new { id = createdProductId })!;
             return Results.Created(locationUri, createdProductId);
         }
 
@@ -109,7 +106,7 @@ namespace Webshop.Web.Endpoints
             }
 
 
-            var locationUri = linker.GetUriByName(context, "GetProductById", new { createdProductId })!;
+            var locationUri = linker.GetUriByName(context, "GetProductById", new { id = createdProductId })!;
             return Results.Created(locationUri, createdProductId);
         }
 

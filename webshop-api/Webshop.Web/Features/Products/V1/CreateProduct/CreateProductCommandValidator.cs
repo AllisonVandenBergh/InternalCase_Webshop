@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Webshop.Contracts.Features.Products;
 using Webshop.Contracts.Features.Products.Request;
 
 namespace Webshop.Web.Features.Products.V1.CreateProduct;
@@ -7,13 +8,12 @@ public class CreateProductCommandValidator : AbstractValidator<CreateProductRequ
 {
     public CreateProductCommandValidator()
     {
-        //RuleFor(product => product.Sku)
-        //    .NotEmpty()
-        //    .MinimumLength(8);
+        RuleFor(p => p.Sku).Must(p => StockKeepingUnit.TryParse(p.Value, out _))
+            .WithMessage("Invalid Sku format.");
 
         RuleFor(product => product.Name)
             .MinimumLength(1)
-            .When(product => !string.IsNullOrEmpty(product.Name));
+            .NotEmpty();
 
         RuleFor(product => product.Description)
             .MinimumLength(1)

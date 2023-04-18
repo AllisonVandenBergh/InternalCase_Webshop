@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Webshop.Contracts.Features.Products;
+using Webshop.Core.Features.Products.Exceptions;
 using Webshop.Core.Features.Products.Interfaces;
 using Webshop.Core.Infrastructure;
 
@@ -26,9 +27,19 @@ public class ProductRepository : IProductRepository
 
     public async Task<Guid> CreateAsync(Product product)
     {
-        await _webshopContext.Product.AddAsync(product);
-        await _webshopContext.SaveChangesAsync();
-        return product.Id;
+        try
+        {
+            await _webshopContext.Product.AddAsync(product);
+            await _webshopContext.SaveChangesAsync();
+
+            return product.Id;
+
+        } catch(DbUpdateException e)
+        {
+            Console.WriteLine(e.Message);
+
+            throw new BadRequestException($"A product with id '{product.Id}' already exists.");
+        }
     }
 
     public async Task<int> CreateMultipleAsync(IEnumerable<Product> products)

@@ -45,7 +45,6 @@ namespace Webshop.Contracts.Features.Products
             throw new ArgumentException("Invalid value for the StockKeepingUnit", paramName: nameof(value));
         }
 
-
         [GeneratedRegex("^[a-zA-Z0-9_-]{8,12}$")]
         private static partial Regex MyRegex();
     }

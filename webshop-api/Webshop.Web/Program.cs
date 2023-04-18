@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Webshop.Core.Infrastructure;
 using Webshop.Web.Endpoints.Internal;
+using Webshop.Web.Features.Products.V1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("AllowedOrigins");
 app.UseEndpoints<Program>();

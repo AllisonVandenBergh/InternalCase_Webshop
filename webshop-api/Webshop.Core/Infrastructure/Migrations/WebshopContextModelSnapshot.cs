@@ -54,7 +54,8 @@ namespace Webshop.Core.Infrastructure.Migrations
 
                     b.Property<string>("Sku")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
 
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");

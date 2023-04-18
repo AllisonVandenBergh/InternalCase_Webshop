@@ -6,9 +6,9 @@ namespace Webshop.Core.Features.Products.V1.GetProductQuery
 {
     public static class GetProduct
     {
-        public record Request(Guid productId) : IRequest<GetProductDto?>;
+        public record Request(Guid productId) : IRequest<GetProductAdminDetailDto?>;
 
-        public class Handler : IRequestHandler<Request, GetProductDto?>
+        public class Handler : IRequestHandler<Request, GetProductAdminDetailDto?>
         {
             private readonly IProductRepository _productRepository;
 
@@ -17,9 +17,13 @@ namespace Webshop.Core.Features.Products.V1.GetProductQuery
                 _productRepository = productRepository;
             }
 
-            public async Task<GetProductDto?> Handle(Request request, CancellationToken cancellationToken)
+            public async Task<GetProductAdminDetailDto?> Handle(Request request, CancellationToken cancellationToken)
             {
-                return (await _productRepository.GetByIdAsync(request.productId)).ToDto();
+                var product = await _productRepository.GetByIdAsync(request.productId);
+                if (product is null)
+                    return null;
+
+                return product.ToDto();
             }
         }
     }

@@ -1,10 +1,12 @@
-﻿using Webshop.Contracts.Features.Products;
+﻿using System;
+using Webshop.Contracts.Features.Products;
 using Webshop.Contracts.Features.Products.Request;
+using Webshop.Contracts.Features.Products.Response;
 
-namespace Webshop.Web.Features.Products.V1.CreateProduct
+namespace Webshop.Web.Features.Products.V1
 {
-    public static class CreateProductCommandExtensions
-    {
+	public static class ProductMapping
+	{
         public static Product ToProduct(this CreateProductRequest product)
         {
             return new Product
@@ -38,5 +40,20 @@ namespace Webshop.Web.Features.Products.V1.CreateProduct
                 UpdatedDate = product.UpdatedDate,
             };
         }
+
+        public static GetProductsAdminDto ToDto(this Product product)
+        {
+            return new GetProductsAdminDto
+            {
+                id = product.Id,
+                sku = product.Sku,
+                name = product.Name,
+                basePrice = product.BasePrice,
+                sellPrice = product.SellPrice,
+                image = product.Image,
+                isInStock = product.IsInStock,
+            };
+        }
     }
 }
+

@@ -13,6 +13,7 @@
     <None Remove="Infrastructure\Configurations\" />
     <None Remove="Infrastructure\Migrations\" />
     <None Remove="Features\Products\V1\" />
+    <None Remove="Features\Products\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Products\Extensions\" />
@@ -20,6 +21,7 @@
     <Folder Include="Infrastructure\Configurations\" />
     <Folder Include="Infrastructure\Migrations\" />
     <Folder Include="Features\Products\V1\" />
+    <Folder Include="Features\Products\Exceptions\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
