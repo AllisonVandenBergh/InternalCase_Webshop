@@ -2,7 +2,7 @@
 {
 	public class Product: BaseEntity
 	{
-        public required StockKeepingUnit Sku { get; init; } = default!;
+        public required StockKeepingUnit Sku { get; init; }
 
         public required string Name { get; init; } = default!;
 

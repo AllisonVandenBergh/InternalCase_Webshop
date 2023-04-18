@@ -11,6 +11,7 @@ using Webshop.Core.Features.Products.V1.CreateProductCommand;
 using Webshop.Core.Features.Products.V1.CreateRandomProductCommand;
 using Webshop.Core.Features.Products.V1.DeleteProductCommand;
 using Webshop.Web.Features.Products.V1.CreateProduct;
+using FluentValidation.Results;
 
 namespace Webshop.Web.Endpoints
 {
@@ -82,6 +83,13 @@ namespace Webshop.Web.Endpoints
             }
 
             var createdProductId = await mediator.Send(new CreateProduct.Request(product));
+            if (createdProductId is null)
+            {
+                return Results.BadRequest(new List<ValidationFailure>
+                {
+                    new("Id", "A product with this Id already exists")
+                });
+            }
 
             var locationUri = linker.GetUriByName(context, "GetProductById", new { createdProductId })!;
             return Results.Created(locationUri, createdProductId);
@@ -92,6 +100,14 @@ namespace Webshop.Web.Endpoints
         {
             var randomProduct = ProductSeeding.GenerateFakeProduct;
             var createdProductId = await mediator.Send(new CreateProduct.Request(randomProduct.ToCreateProductRequest()));
+            if (createdProductId is null)
+            {
+                return Results.BadRequest(new List<ValidationFailure>
+                {
+                    new("Id", "A product with this Id already exists")
+                });
+            }
+
 
             var locationUri = linker.GetUriByName(context, "GetProductById", new { createdProductId })!;
             return Results.Created(locationUri, createdProductId);
@@ -103,6 +119,13 @@ namespace Webshop.Web.Endpoints
         {
             var randomProducts = ProductSeeding.GenerateFakeProducts.ToList().ConvertAll(p => p.ToCreateProductRequest());
             var createdProducts = await mediator.Send(new CreateRandomProducts.Request(randomProducts));
+            if (!createdProducts)
+            {
+                return Results.BadRequest(new List<ValidationFailure>
+                {
+                    new("message", "Problem adding the multiple products")
+                });
+            }
 
             var locationUri = linker.GetUriByName(context, "GetProducts")!;
             return Results.Created(locationUri, randomProducts);

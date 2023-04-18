@@ -6,9 +6,9 @@ namespace Webshop.Core.Features.Products.V1.CreateProductCommand
 {
     public static class CreateProduct
     {
-        public record Request(CreateProductRequest createProductRequest) : IRequest<Guid>;
+        public record Request(CreateProductRequest createProductRequest) : IRequest<Guid?>;
 
-        public class Handler : IRequestHandler<Request, Guid>
+        public class Handler : IRequestHandler<Request, Guid?>
         {
             private readonly IProductRepository _productRepository;
 
@@ -17,7 +17,7 @@ namespace Webshop.Core.Features.Products.V1.CreateProductCommand
                 _productRepository = productRepository;
             }
 
-            public async Task<Guid> Handle(Request command, CancellationToken cancellationToken)
+            public async Task<Guid?> Handle(Request command, CancellationToken cancellationToken)
             {
                 return await _productRepository.CreateAsync(command.createProductRequest.ToProduct())!;
             }

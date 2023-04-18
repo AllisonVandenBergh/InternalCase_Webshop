@@ -7,7 +7,7 @@ namespace Webshop.Core.Utilities
     {
         public static Product GenerateFakeProduct => new Faker<Product>()
                .RuleFor(p => p.Id, b => b.Random.Guid())
-               //.RuleFor(p => p.Sku, b => b.Random.String2(8, 12))
+               .RuleFor(p => p.Sku, f => new StockKeepingUnit(f.Random.AlphaNumeric(8)))
                .RuleFor(p => p.Name, b => b.Commerce.ProductName())
                .RuleFor(p => p.Description, b => b.Lorem.Sentences())
                .RuleFor(p => p.Image, b => b.Image.PicsumUrl())
@@ -19,7 +19,7 @@ namespace Webshop.Core.Utilities
 
         public static IList<Product> GenerateFakeProducts => new Faker<Product>()
                 .RuleFor(p => p.Id, b => b.Random.Guid())
-                //.RuleFor(p => p.Sku, b => b.Random.String2(8, 12))
+                .RuleFor(p => p.Sku, f => new StockKeepingUnit(f.Random.AlphaNumeric(8)))
                 .RuleFor(p => p.Name, b => b.Commerce.ProductName())
                 .RuleFor(p => p.Description, b => b.Lorem.Sentences())
                 .RuleFor(p => p.Image, b => b.Image.PicsumUrl())
