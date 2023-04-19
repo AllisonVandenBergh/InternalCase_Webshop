@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Webshop.Contracts.Features.Products;
+using Webshop.Contracts.Features.V1.Products;
 
 namespace Webshop.Core.Utilities
 {

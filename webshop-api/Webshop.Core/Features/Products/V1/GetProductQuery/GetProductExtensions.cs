@@ -1,5 +1,5 @@
-﻿using Webshop.Contracts.Features.Products;
-using Webshop.Contracts.Features.Products.Response;
+﻿using Webshop.Contracts.Features.V1.Products;
+using Webshop.Contracts.Features.V1.Products.Response;
 
 namespace Webshop.Core.Features.Products.V1.GetProductQuery
 {

@@ -9,13 +9,15 @@
   <ItemGroup>
     <None Remove="Features\" />
     <None Remove="Features\Products\" />
-    <None Remove="Features\Products\Request\" />
-    <None Remove="Features\Products\Response\" />
+    <None Remove="Features\Products\V1\" />
+    <None Remove="Features\Products\V1\Request\" />
+    <None Remove="Features\Products\V1\Response\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\" />
     <Folder Include="Features\Products\" />
-    <Folder Include="Features\Products\Request\" />
-    <Folder Include="Features\Products\Response\" />
+    <Folder Include="Features\Products\V1\" />
+    <Folder Include="Features\Products\V1\Request\" />
+    <Folder Include="Features\Products\V1\Response\" />
   </ItemGroup>
 </Project>

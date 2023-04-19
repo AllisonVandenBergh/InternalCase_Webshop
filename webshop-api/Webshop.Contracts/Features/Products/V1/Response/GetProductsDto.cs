@@ -1,4 +1,4 @@
-﻿namespace Webshop.Contracts.Features.Products.Response
+﻿namespace Webshop.Contracts.Features.V1.Products.Response
 {
     [Serializable]
     public class GetProductsDto

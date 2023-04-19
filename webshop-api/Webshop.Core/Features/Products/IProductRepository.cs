@@ -1,6 +1,6 @@
 ﻿namespace Webshop.Core.Features.Products.Interfaces;
 ﻿using System;
-using Webshop.Contracts.Features.Products;
+using Webshop.Contracts.Features.V1.Products;
 
 public interface IProductRepository
 {
@@ -15,4 +15,6 @@ public interface IProductRepository
     internal Task<int> DeleteAsync(Product product);
 
     internal Task<IList<Product>> GetAllAsync();
+
+    internal Task<bool> ExistByIdAsync(Guid id);
 }

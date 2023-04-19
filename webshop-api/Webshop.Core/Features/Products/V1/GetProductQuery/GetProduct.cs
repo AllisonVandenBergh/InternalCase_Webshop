@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Webshop.Contracts.Features.Products.Response;
+using Webshop.Contracts.Features.V1.Products.Response;
 using Webshop.Core.Features.Products.Interfaces;
 
 namespace Webshop.Core.Features.Products.V1.GetProductQuery

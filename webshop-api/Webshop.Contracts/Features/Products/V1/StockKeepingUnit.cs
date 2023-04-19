@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Webshop.Contracts.Features.Products
+namespace Webshop.Contracts.Features.V1.Products
 {
     [Serializable]
     public partial record class StockKeepingUnit

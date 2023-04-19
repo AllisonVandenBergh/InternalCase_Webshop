@@ -14,6 +14,7 @@
     <None Remove="Infrastructure\Migrations\" />
     <None Remove="Features\Products\V1\" />
     <None Remove="Features\Products\Exceptions\" />
+    <None Remove="Features\Products\V1\UpdateProductCommand\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Features\Products\Extensions\" />
@@ -22,6 +23,7 @@
     <Folder Include="Infrastructure\Migrations\" />
     <Folder Include="Features\Products\V1\" />
     <Folder Include="Features\Products\Exceptions\" />
+    <Folder Include="Features\Products\V1\UpdateProductCommand\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
@@ -30,6 +32,7 @@
     <PackageReference Include="Bogus" Version="34.0.2" />
     <PackageReference Include="MediatR" Version="12.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
+    <PackageReference Include="EntityFrameworkCore.Exceptions.SqlServer" Version="6.0.3.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Webshop.Contracts\Webshop.Contracts.csproj" />

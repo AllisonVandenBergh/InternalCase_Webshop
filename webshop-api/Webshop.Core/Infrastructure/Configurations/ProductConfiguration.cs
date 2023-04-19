@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Webshop.Contracts.Features.Products;
+using Webshop.Contracts.Features.V1.Products;
 
 namespace Webshop.Core.Infrastructure.Configurations;
 
@@ -23,5 +23,8 @@ internal class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.IsInStock).IsRequired();
         builder.Property(x => x.CreatedDate).IsRequired();
         builder.Property(x => x.UpdatedDate).IsRequired();
+
+        builder.HasIndex(x => x.Name).IsUnique();
+        builder.HasIndex(x => x.Sku).IsUnique();
     }
 }

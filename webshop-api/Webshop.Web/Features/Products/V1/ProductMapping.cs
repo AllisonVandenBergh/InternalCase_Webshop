@@ -1,7 +1,7 @@
 ﻿using System;
-using Webshop.Contracts.Features.Products;
-using Webshop.Contracts.Features.Products.Request;
-using Webshop.Contracts.Features.Products.Response;
+using Webshop.Contracts.Features.V1.Products;
+using Webshop.Contracts.Features.V1.Products.Request;
+using Webshop.Contracts.Features.V1.Products.Response;
 
 namespace Webshop.Web.Features.Products.V1
 {

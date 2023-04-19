@@ -1,4 +1,4 @@
-namespace Webshop.Contracts.Features.Products.Request
+namespace Webshop.Contracts.Features.V1.Products.Request
 {
     [Serializable]
     public class GetProductRequest

@@ -1,5 +1,7 @@
+using System.Drawing;
+using EntityFramework.Exceptions.Common;
 using Microsoft.EntityFrameworkCore;
-using Webshop.Contracts.Features.Products;
+using Webshop.Contracts.Features.V1.Products;
 using Webshop.Core.Features.Products.Exceptions;
 using Webshop.Core.Features.Products.Interfaces;
 using Webshop.Core.Infrastructure;
@@ -25,6 +27,11 @@ public class ProductRepository : IProductRepository
         return await _webshopContext.Product.Where(product => product.Id == id).FirstOrDefaultAsync();
     }
 
+    public async Task<bool> ExistByIdAsync(Guid id)
+    {
+        return await _webshopContext.Product.Where(product => product.Id == id).CountAsync() > 0;
+    }
+
     public async Task<Guid> CreateAsync(Product product)
     {
         try
@@ -34,11 +41,11 @@ public class ProductRepository : IProductRepository
 
             return product.Id;
 
-        } catch(DbUpdateException e)
+        } catch(UniqueConstraintException ex)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(ex.Message);
 
-            throw new BadRequestException($"A product with id '{product.Id}' already exists.");
+            throw new BadRequestException($"A product with id '{product.Id}', name '{product.Name}' or sku '{product.Sku}' already exists.");
         }
     }
 

@@ -1,5 +1,5 @@
 using MediatR;
-using Webshop.Contracts.Features.Products.Request;
+using Webshop.Contracts.Features.V1.Products.Request;
 using Webshop.Core.Features.Products.Interfaces;
 using Webshop.Core.Features.Products.V1.CreateProductCommand;
 

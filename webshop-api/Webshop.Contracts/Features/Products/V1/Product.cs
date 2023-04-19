@@ -1,4 +1,4 @@
-﻿namespace Webshop.Contracts.Features.Products
+﻿namespace Webshop.Contracts.Features.V1.Products
 {
 	public class Product: BaseEntity
 	{
