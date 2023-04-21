@@ -11,28 +11,30 @@
     <None Remove="Features\Products\" />
     <None Remove="Infrastructure\" />
     <None Remove="Infrastructure\Configurations\" />
-    <None Remove="Features\Products\Interfaces\" />
     <None Remove="Infrastructure\Migrations\" />
-    <None Remove="Utils\" />
-    <None Remove="Features\Products\Domain\" />
-    <None Remove="Features\Products\Domain\Request\" />
-    <None Remove="Features\Products\Domain\Response\" />
+    <None Remove="Features\Products\V1\" />
+    <None Remove="Features\Products\Exceptions\" />
+    <None Remove="Features\Products\V1\UpdateProductCommand\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Features\Products\" />
+    <Folder Include="Features\Products\Extensions\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Infrastructure\Configurations\" />
-    <Folder Include="Features\Products\Interfaces\" />
     <Folder Include="Infrastructure\Migrations\" />
-    <Folder Include="Utils\" />
-    <Folder Include="Features\Products\Domain\" />
-    <Folder Include="Features\Products\Domain\Request\" />
-    <Folder Include="Features\Products\Domain\Response\" />
+    <Folder Include="Features\Products\V1\" />
+    <Folder Include="Features\Products\Exceptions\" />
+    <Folder Include="Features\Products\V1\UpdateProductCommand\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
+    <PackageReference Include="EntityFrameworkCore.Exceptions.SqlServer" Version="6.0.3.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Webshop.Contracts\Webshop.Contracts.csproj" />
   </ItemGroup>
 </Project>

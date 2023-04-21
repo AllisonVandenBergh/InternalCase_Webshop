@@ -1,9 +1,10 @@
-﻿using FluentValidation;
+﻿using System.Reflection;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Webshop.Core.Infrastructure;
-using Webshop.Web;
-using MediatR;
 using Webshop.Web.Endpoints.Internal;
+using Webshop.Web.Features.Products.V1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddEndpoints<Program>(builder.Configuration);
 builder.Services.AddDbContext<WebshopContext>(options => options.UseSqlServer(builder.Configuration.GetValue<string>("Database:ConnectionString")));
-builder.Services.AddMediatR(typeof(Program));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddCors(options =>
@@ -37,6 +39,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("AllowedOrigins");
 app.UseEndpoints<Program>();

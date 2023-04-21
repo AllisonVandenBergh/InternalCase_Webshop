@@ -1,0 +1,19 @@
+P:System.DateTime.Now;Use System.DateTime.UtcNow instead, this is the standard in this Project
+P:System.DateTimeOffset.Now;Use System.DateTimeOffset.UtcNow instead, this is the standard in this Project
+
+M:HtmlAgilityPack.HtmlDocument.Save(System.IO.Stream);Use overload with Encoding instead
+M:System.Threading.Tasks.Task.GetAwaiter();Avoid using GetAwaiter
+
+T:NUnit.Framework.Assert;Use FluentAssertion instead
+
+
+M:System.Threading.CancellationToken.#ctor; Use CancellationTokenSource.Token instead
+
+M:Moq.Mock`1.Verify(System.Linq.Expressions.Expression{System.Action{`0}}); Use overload with Times instead
+M:Moq.Mock`1.Verify(System.Linq.Expressions.Expression{System.Action{`0}},System.String); Use overload with Times instead
+M:Moq.Mock`1.Verify`1(System.Linq.Expressions.Expression{System.Func{`0,``0}}); Use overload with Times instead
+M:Moq.Mock`1.Verify`1(System.Linq.Expressions.Expression{System.Func{`0,``0}},System.String); Use overload with Times instead
+
+M:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetService`1(System.IServiceProvider); Use GetRequiredService instead
+T:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions;Use ServiceCollectionDescriptorExtensions with Try.. instead
+

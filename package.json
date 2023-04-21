@@ -2,7 +2,7 @@
     "scripts": {
         "db:up": "docker-compose -f docker-compose.yml up -d",
         "db:upMac": "docker-compose -f docker-compose-arm.yml up -d",
-        "db:seed": "dotnet run --project Webshop.DbSeed",
+        "db:seed": "dotnet run --project ./webshop-api/Webshop.DbSeed",
         "db:start": "docker start webshop-database",
         "db:migrate": "./webshop-api/BuildMigration.sh",
         "db:update": "dotnet ef database update --project ./webshop-api/Webshop.Core --startup-project ./webshop-api/Webshop.Web",

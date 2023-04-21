@@ -1,10 +1,8 @@
-﻿namespace Webshop.Web.Endpoints.Internal
+﻿namespace Webshop.Web.Endpoints.Internal;
+
+public interface IEndpoints
 {
-	public interface IEndpoints
-	{
-        public static abstract void DefineEndpoints(IEndpointRouteBuilder app);
+    public static abstract void DefineEndpoints(IEndpointRouteBuilder app);
 
-        public static abstract void AddServices(IServiceCollection services, IConfiguration configuration);
-    }
+    public static abstract void AddServices(IServiceCollection services, IConfiguration configuration);
 }
-

@@ -1,39 +1,34 @@
 ﻿using FluentValidation;
-using Webshop.Core.Features.Products.Domain.Request;
+using Webshop.Contracts.Features.V1.Products;
+using Webshop.Contracts.Features.V1.Products.Request;
 
-namespace Webshop.Web.Features.Products.V1.CreateProduct
+namespace Webshop.Web.Features.Products.V1.CreateProduct;
+
+public class CreateProductCommandValidator : AbstractValidator<CreateProductRequest>
 {
-	public class CreateProductCommandValidator: AbstractValidator<CreateProductRequest>
-	{
-		public CreateProductCommandValidator()
-		{
-            RuleFor(product => product.Sku)
-            .NotNull()
+    public CreateProductCommandValidator()
+    {
+        RuleFor(p => p.Sku).Must(p => StockKeepingUnit.TryParse(p.Value, out _))
+            .WithMessage("Invalid Sku format.");
+
+        RuleFor(product => product.Name)
+            .MinimumLength(1)
+            .NotEmpty();
+
+        RuleFor(product => product.Description)
+            .MinimumLength(1)
+            .When(product => !string.IsNullOrEmpty(product.Description));
+
+        RuleFor(product => product.Image)
+            .MinimumLength(1)
+            .When(product => !string.IsNullOrEmpty(product.Image));
+
+        RuleFor(product => product.BasePrice)
             .NotEmpty()
-            .MinimumLength(8);
+            .GreaterThan(0);
 
-            RuleFor(product => product.Name)
-                .NotEmpty()
-                .NotNull()
-                .MinimumLength(1);
-
-            RuleFor(product => product.Description)
-                .MinimumLength(1)
-                .When(product => !string.IsNullOrEmpty(product.Description));
-
-            RuleFor(product => product.Image)
-                .MinimumLength(1)
-                .When(product => !string.IsNullOrEmpty(product.Image));
-
-            RuleFor(product => product.BasePrice)
-                .NotEmpty()
-                .NotNull()
-                .GreaterThan(0);
-
-            RuleFor(product => product.SellPrice)
-                .NotEmpty()
-                .NotNull()
-                .GreaterThan(0);
-        }
-	}
+        RuleFor(product => product.SellPrice)
+            .NotEmpty()
+            .GreaterThan(0);
+    }
 }
