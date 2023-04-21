@@ -9,7 +9,7 @@ namespace Webshop.Core.Features.Products.V1.UpdateProductCommand
         {
             return new Product
             {
-                Id = updateProduct.Id,
+                Id = new Guid(),
                 Sku = updateProduct.Sku,
                 Name = updateProduct.Name,
                 BasePrice = updateProduct.BasePrice,

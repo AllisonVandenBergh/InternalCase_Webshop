@@ -143,9 +143,13 @@ namespace Webshop.Web.Endpoints
             return productDeleted ? Results.NoContent() : Results.NotFound();
         }
 
-        internal static async Task<IResult> UpdateAsync(UpdateProductRequest product, IMediator mediator)
+        internal static async Task<IResult> UpdateAsync(Guid id, UpdateProductRequest product, IMediator mediator)
         {
-            var updatedProductId = await mediator.Send(new UpdateProduct.Request(product));
+            // Option 1: no Id in the url --> but I don't like that idea, because you better have it in you're url!
+            // Option 2: overwrite the product parameter but the data is already in that product variable.
+            // Option 3: what I developed:
+
+            var updatedProductId = await mediator.Send(new UpdateProduct.Request(product, id));
             return updatedProductId is not null ? Results.Ok(updatedProductId) : Results.NotFound();
         }
     }

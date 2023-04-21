@@ -3,7 +3,7 @@
     [Serializable]
     public class UpdateProductRequest
     {
-        public required Guid Id { get; init; }
+        //public required Guid Id { get; init; }
 
         public required StockKeepingUnit Sku { get; init; }
 
